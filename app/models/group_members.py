@@ -8,4 +8,5 @@ class GroupMember(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   character_id = db.Column(db.Integer, db.ForeignKney('characters.id'))
 
-  user = db.relationship('User', back_ref='users')
+  user = db.relationship('User', back_ref='group_joined')
+  character = db.relationship('Character', back_ref="member_of_group")

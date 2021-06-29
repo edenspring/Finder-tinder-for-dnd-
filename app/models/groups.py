@@ -8,3 +8,6 @@ class Group(db.Model):
   name = db.Column(db.String(75), nullable=False)
   game_rules = db.Column(db.String(50))
   recruiting = db.Column(db.Boolean, default=True)
+
+  user = db.relationship('User', back_ref='group')
+  
