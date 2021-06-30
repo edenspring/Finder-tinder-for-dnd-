@@ -12,6 +12,12 @@ class Group(db.Model):
 
     user = db.relationship('User', back_ref='group')
 
+    tags = db.relationship(
+        'Tag',
+        primaryjoin='and_(Tag.taggable_type=="group", foreign(Tag.tabble_id)==Group.id)',
+        lazy='select',
+    )
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -20,4 +26,5 @@ class Group(db.Model):
             'game_rules': self.game_rules,
             'recruiting': self.recruiting,
             'user': self.user.to_dict(),
+            'tags': [tag.tag for tag in self.tags]
         }
