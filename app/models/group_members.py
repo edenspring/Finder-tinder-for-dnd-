@@ -10,3 +10,10 @@ class GroupMember(db.Model):
 
   user = db.relationship('User', back_ref='group_joined')
   character = db.relationship('Character', back_ref="member_of_group")
+
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'user_id':self.user_id,
+      'character_id':self.character,
+    }
