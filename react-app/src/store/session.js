@@ -81,7 +81,6 @@ export const signUp = (username, email, password, about, user_photo, looking_for
 }
 
 
-
 const initialState = {user: null}
 
 export default function reducer(state = initialState, action) {

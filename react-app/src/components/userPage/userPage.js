@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
+import * as userActions from '../../store/session'
 
 const UserPage = () => {
   const user = useSelector((state) => state.session.user);
@@ -20,7 +21,10 @@ const UserPage = () => {
     const data = {
       id: user.id,
       username: userName,
-      user_photo,
+      user_photo: user_photo,
+      looking_for_group:looking_for_group,
+      password: newPassword,
+      repeatPassword: verifyPassword,
     };
   }
 
@@ -49,7 +53,7 @@ const UserPage = () => {
                 <label>New password : </label>
                 <input onChange={(e)=>setNewPassword(e.target.value)} type="password"></input>
                 <label>Confirm Password : </label>
-                <input onChange={(e)=>setVerifyPassword(e.target.value)} type="password>"></input>
+                <input onChange={(e)=>setVerifyPassword(e.target.value)} type="password"></input>
                 <button type="submit">Submit change</button>
               </form>
             </>
