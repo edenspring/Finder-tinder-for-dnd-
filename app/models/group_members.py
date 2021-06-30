@@ -6,10 +6,10 @@ class GroupMember(db.Model):
 
   id= db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-  character_id = db.Column(db.Integer, db.ForeignKney('characters.id'))
+  character_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
 
-  user = db.relationship('User', back_ref='group_joined')
-  character = db.relationship('Character', back_ref="member_of_group")
+  user = db.relationship('User', backref='group_joined')
+  character = db.relationship('Character', backref="member_of_group")
 
   def to_dict(self):
     return {

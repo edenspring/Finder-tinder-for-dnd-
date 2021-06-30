@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
 
     tags = db.relationship(
         'Tag',
-        primaryjoin='and_(Tag.taggable_type=="user", foreign(Tag.tabble_id)==User.id)',
+        primaryjoin='and_(Tag.taggable_type=="user", foreign(Tag.taggable_id)==User.id)',
         lazy='select',
     )
 

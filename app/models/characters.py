@@ -10,9 +10,9 @@ class Character(db.Model):
     name = db.Column(db.String(75), nullable=False)
     character_class = db.Column(db.String(30))
     character_bio = db.Column(db.Text)
-    character_sheet = db.string(250)
+    character_sheet = db.String(250)
 
-    user = db.relationship('User', back_ref='characters')
+    user = db.relationship('User', backref='characters')
 
     def to_dict(self): {
         'id': self.id,

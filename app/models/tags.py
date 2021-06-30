@@ -14,13 +14,13 @@ class Tag(db.Model):
 
     user = db.relationship(
         'User',
-        primaryjoin='and_(Tag.taggble_type=="user", foreign(Tag.taggable_id)==User.id)',
+        primaryjoin='and_(Tag.taggable_type=="user", foreign(Tag.taggable_id)==User.id)',
         uselist=False,
     )
 
     group = db.relationship(
         'Group',
-        primaryjoin='and_(Tag.taggble_type=="group", foreign(Tag.taggable_id)==Group.id)',
+        primaryjoin='and_(Tag.taggable_type=="group", foreign(Tag.taggable_id)==Group.id)',
         uselist=False,
     )
 

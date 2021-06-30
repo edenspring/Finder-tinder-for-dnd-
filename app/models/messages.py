@@ -9,5 +9,5 @@ class Message(db.Model):
   chat_id=db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
   content=db.Column(db.String(255), nullable=False)
 
-  user = db.relationship('User', back_ref='messages')
-  chat = db.relationship('Chat', back_ref='chats')
+  user = db.relationship('User', backref='messages')
+  chat = db.relationship('Chat', backref='chats')

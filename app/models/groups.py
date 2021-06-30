@@ -10,11 +10,11 @@ class Group(db.Model):
     game_rules = db.Column(db.String(50))
     recruiting = db.Column(db.Boolean, default=True)
 
-    user = db.relationship('User', back_ref='group')
+    user = db.relationship('User', backref='groups')
 
     tags = db.relationship(
         'Tag',
-        primaryjoin='and_(Tag.taggable_type=="group", foreign(Tag.tabble_id)==Group.id)',
+        primaryjoin='and_(Tag.taggable_type=="group", foreign(Tag.taggable_id)==Group.id)',
         lazy='select',
     )
 

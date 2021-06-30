@@ -9,7 +9,7 @@ class ChatMember(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     chat_id = db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
 
-    chat = db.relationship('Chat', back_ref='members_list')
+    chat = db.relationship('Chat', backref='members_list')
 
     def to_dict(self):
         return {
