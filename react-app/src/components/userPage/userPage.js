@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 const UserPage = () => {
@@ -9,16 +9,19 @@ const UserPage = () => {
   const [editLFG, setEditLFG] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
 
-  const [userName, setUserName] = useState('');
-  const [user_photo, setPhoto] = useState('');
-  const [looking_for_group, setLFG] = useState(true);
+  const [userName, setUserName] = useState(user.userName);
+  const [user_photo, setPhoto] = useState(user.photo);
+  const [looking_for_group, setLFG] = useState(user.looking_for_group);
   const [newPassword, setNewPassword] = useState('');
 
-  if (user) {
-    setUserName(user.username);
-    setPhoto(user.photo);
-    setLFG(user.looking_for_group);
-  }
+  useEffect(()=>{
+
+    if (user) {
+      setUserName(user.username);
+      setPhoto(user.photo);
+      setLFG(user.looking_for_group);
+    }
+  },[])
 
   function updateUser(e) {
     e.preventDefault();
@@ -30,7 +33,7 @@ const UserPage = () => {
         <>
           <div className="userpage_username__div">
             User name: {user.username}
-            <button onClick={()=>setEditName(true)}>Edit</button>
+            <button onClick={()=>setEditName(!editName)}>Edit</button>
             {editName && (
               <>
                 <form onSubmit={updateUser}>
