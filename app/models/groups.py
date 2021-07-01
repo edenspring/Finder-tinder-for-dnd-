@@ -10,7 +10,7 @@ class Group(db.Model):
     game_rules = db.Column(db.String(50))
     recruiting = db.Column(db.Boolean, default=True)
 
-    user = db.relationship('User', backref='groups')
+    
 
     tags = db.relationship(
         'Tag',
@@ -25,6 +25,5 @@ class Group(db.Model):
             'name': self.name,
             'game_rules': self.game_rules,
             'recruiting': self.recruiting,
-            'user': self.user.to_dict(),
             'tags': [tag.tag for tag in self.tags]
         }

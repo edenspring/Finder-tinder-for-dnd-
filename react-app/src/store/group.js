@@ -1,27 +1,33 @@
 //constants
 const SET_GROUP = 'group/SET_GROUP';
+const UPDATE_GROUP_TAGS = '/group/UPDATE_GROUP_TAGS'
 
 //action creators
-const setGroup = (group) => ({
+export const setGroup = (group) => ({
   type: SET_GROUP,
   payload: group
 })
 
 //thunkitronics
-export const updateUser = (data) => async(dispatch) => {
+
+export const getUserGroup = (userId) => async(dispatch) => {
+  const response = await fetch(`/api/groups/user`)
+}
+
+export const createGroup = (data) => async(dispatch) => {
   console.log('you made it bro, heres ur data', data)
-  const response = await fetch(`/api/users/${data.id}`, {
-    method: 'PUT',
+  const response = await fetch(`/api/groups/new`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   });
-  const user = await response.json();
-  if (user && user.errors) {
-    return user;
+  const group = await response.json();
+  if (group && group.errors) {
+    return group;
   } else {
-    dispatch(setUser(user));
+    dispatch(setGroup(group));
   }
 };
 
@@ -31,9 +37,10 @@ export default function reducer(state = initialState, action) {
   let newState
   switch (action.type) {
       case SET_GROUP:
-          return
+          newState = action.payload;
+          return newState;
       case UPDATE_GROUP_TAGS:
-          newState = action.payload
+          newState = action.payload;
           return newState;
   }
 }

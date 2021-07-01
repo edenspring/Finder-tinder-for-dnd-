@@ -1,3 +1,5 @@
+import * as groupActions from "./group"
+
 // constants
 const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
@@ -26,6 +28,7 @@ export const authenticate = () => async (dispatch) => {
         return;
     }
     dispatch(setUser(data))
+    if (data.group) dispatch(groupActions.setGroup(data.group))
 }
 
 export const login = (email, password) => async (dispatch) => {
