@@ -24,18 +24,23 @@ def user(id):
 def edit_user(id):
     user_id = int(current_user.id)
     res = request.get_json()
+    print('>>>>',res['looking_for_group'])
     user = db.session.query(User).get(user_id)
+    print('<<<<', user.looking_for_group)
     if(res['password'] != res['repeatPassword']):
         return {'errors':["Password Does Not Match"]}
     else:
         if(user.username != res['username']):
             user.username = res['username']
-        elif(user.user_photo != res['photo']):
+        if(user.user_photo != res['photo']):
             user.user_photo = res['photo']
-        elif(user.hashed_password!= generate_password_hash(res['password'])):
+        if(user.hashed_password!= generate_password_hash(res['password'])):
             user.hashed_password = generate_password_hash(res['password'])
-        elif(user.looking_for_group !=res['looking_for_group']):
+        if(user.looking_for_group != res['looking_for_group']):
+            print('!!!!!penis!!!!!', user.looking_for_group)
+
             user.looking_for_group = res['looking_for_group']
+            print(user.looking_for_group)
         db.session.add(user)
         db.session.commit()
         return user.to_dict()

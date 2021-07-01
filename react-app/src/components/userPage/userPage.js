@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
-import * as userActions from '../../store/session'
+import {useDispatch, useSelector} from 'react-redux';
+import * as userActions from '../../store/user'
 
 const UserPage = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [editName, setEditName] = useState(false);
   const [editPhoto, setEditPhoto] = useState(false);
@@ -18,14 +19,23 @@ const UserPage = () => {
 
   function updateUser(e) {
     e.preventDefault();
+
     const data = {
       id: user.id,
       username: userName,
-      user_photo: user_photo,
+      photo: user_photo,
       looking_for_group:looking_for_group,
       password: newPassword,
       repeatPassword: verifyPassword,
     };
+
+    console.log('datarrr')
+    dispatch(userActions.updateUser(data))
+  }
+
+  function lfgUpdate(e) {
+    console.log(e.checked)
+    e.checked === 'on' ? setLFG(true) : setLFG(false)
   }
 
   function updatePassword(e) {
@@ -64,7 +74,7 @@ const UserPage = () => {
         <>
           <div className="userpage_username__div">
             User name: {user.username}
-            <button onClick={() => setEditName(!editName)}>Edit</button>
+            <button >Edit</button>
             {editName && (
               <>
                 <form onSubmit={updateUser}>
@@ -72,7 +82,7 @@ const UserPage = () => {
                     onChange={(e) => setUserName(e.target.value)}
                     defaultValue={userName}
                   />
-                  <button type="submit" onClick={() => setEditName(false)}>
+                  <button type="submit">
                     Update Username
                   </button>
                 </form>
@@ -90,7 +100,7 @@ const UserPage = () => {
                     onChange={(e) => setPhoto(e.target.value)}
                     defaultValue={user_photo}
                   />
-                  <button type="submit" onClick={() => setEditPhoto(false)}>
+                  <button type="submit" >
                     Update Photo Link
                   </button>
                 </form>
@@ -116,10 +126,11 @@ const UserPage = () => {
                 <form onSubmit={updateUser}>
                   <input
                     type="checkbox"
-                    onChange={(e) => setLFG(e.target.value)}
                     checked={looking_for_group}
+                    onChange={(e)=> setLFG(!looking_for_group)}
+                    // onClick={(e) => setLFG(e.target.checked)}
                   />
-                  <button type="submit" onClick={() => setEditLFG(false)}>
+                  <button type="submit" >
                     Update Looking for Group Status
                   </button>
                 </form>

@@ -1,7 +1,15 @@
 //constants
 const SET_USER = 'session/SET_USER';
 
-export const updateUser = (data) => {
+//action creators
+const setUser = (user) => ({
+  type: SET_USER,
+  payload: user
+})
+
+//thunkitronics
+export const updateUser = (data) => async(dispatch) => {
+  console.log('you made it bro, heres ur data', data)
   const response = await fetch(`/api/users/${data.id}`, {
     method: 'PUT',
     headers: {
@@ -9,10 +17,10 @@ export const updateUser = (data) => {
     },
     body: JSON.stringify(data),
   });
-  const data = await response.json();
-  if (data && data.errors) {
-    return data;
+  const user = await response.json();
+  if (user && user.errors) {
+    return user;
   } else {
-    dispatch(setUser(data));
+    dispatch(setUser(user));
   }
 };
