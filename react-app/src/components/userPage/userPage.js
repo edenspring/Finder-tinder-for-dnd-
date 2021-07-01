@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as userActions from '../../store/user';
+import * as tagActions from '../../store/tag'
 
 const UserPage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+  const user = useSelector((state) => ({...state.session.user}));
   const [editName, setEditName] = useState(false);
   const [editPhoto, setEditPhoto] = useState(false);
   const [editTags, setEditTags] = useState(false);
@@ -50,13 +51,27 @@ const UserPage = () => {
     }
   }
 
-  function removeUserTag(e) {
-    return
+  function removeUserTag(id, e) {
+    console.log('remove_Tag_function')
+    dispatch(tagActions.removeTag(id))
+    e.closest('li').remove();
+    e.remove()
   }
 
   function addUserTag(e){
     e.preventDefault();
+    const data = {
+      'taggable_id': user.id,
+      'taggable_type': 'user',
+      'tag': newTag
+    }
+    dispatch(tagActions.createTag(data))
+  }
 
+  function enableTagEdit(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setEditTags(true);
   }
 
   return (
@@ -126,17 +141,17 @@ const UserPage = () => {
                   {Object.values(user.tags).map((tag, i) => (
                     <li key={`user_tag_key_${i}`}>
                       {tag.tag}{' '}
-                      {editTags && <button onClick={removeUserTag(tag.id)}>X</button>}
+                      {editTags && <button onClick={(e)=>removeUserTag(tag.id,e.target)}>X</button>}
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => setEditTags(true)}>Edit tags</button>
+                <button onClick={(e) => enableTagEdit(e)}>Edit tags</button>
                 {editTags && (
                   <>
                     <form onSubmit={addUserTag}>
                       <input
                         onChange={(e) => setNewTag(e.target.value)}
-                        defaultValue="Enter new tag..."
+                        placeholder="Enter new tag..."
                       />
                       <button type="submit">Add new tag</button>
                     </form>

@@ -23,9 +23,11 @@ def user(id):
 @login_required
 def edit_user(id):
     user_id = int(current_user.id)
+    if (user_id != id):
+        return 'Not allowed'
     res = request.get_json()
     print('>>>>',res['looking_for_group'])
-    user = db.session.query(User).get(user_id)
+    user = db.session.query(User).get(id)
     print('<<<<', user.looking_for_group)
     if(res['password'] != res['repeatPassword']):
         return {'errors':["Password Does Not Match"]}

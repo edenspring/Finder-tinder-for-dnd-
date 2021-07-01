@@ -6,4 +6,26 @@ const updateUserTags = (tags) => ({
   payload: tags
 })
 
-export const removeTag = ()
+export const removeTag = (id) => async(dispatch) => {
+  const response = await fetch (`/api/tags/${id}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
+export const createTag = (tagData) => async(dispatch) => {
+  const response = await fetch ("/api/tags/new", {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(tagData)
+  });
+  const data = await response.json();
+  if (data.errors){
+    return
+  }
+  dispatch(updateUserTags(data))
+}

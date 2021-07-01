@@ -85,12 +85,15 @@ export const signUp = (username, email, password, about, user_photo, looking_for
 const initialState = {user: null}
 
 export default function reducer(state = initialState, action) {
+    let newState
     switch (action.type) {
         case SET_USER:
             return {user: action.payload}
         case REMOVE_USER:
             return {user: null}
         case UPDATE_USER_TAGS:
+            newState = {...state}
+            newState.user.tags[action.payload.id] = {'id': action.payload.id, 'tag': action.payload.tag}
         default:
             return state;
     }
