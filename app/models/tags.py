@@ -27,16 +27,23 @@ class Tag(db.Model):
     def tagged(self):
       if self.taggable_type == 'user':
           return self.user.to_dict()
-      elif self.imageable_type == 'group':
-          return self.parent.to_dict()
+      elif self.taggable_type == 'group':
+          return self.group.to_dict()
       else:
           return "Invalid taggable type"
 
+    def parent_id(self):
+        if self.taggable_type == 'user':
+            return self.user.id
+        elif self.taggable_type == 'group':
+            return self.group.user_id
+        else: return 'indeterminate'
     def to_dict(self):
         return{
             'id': self.id,
             'taggable_id': self.taggable_id,
             'taggable_type': self.taggable_type,
             'tag': self.tag,
-            'tagged_entity': self.tagged()
+            'tagged_entity': self.tagged(),
+            'parent_id': self.parent_id()
         }
