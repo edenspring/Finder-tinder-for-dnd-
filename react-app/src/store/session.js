@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
+const UPDATE_USER_TAGS = "session/UPDATE_USER_TAGS"
 
 // action creators
 const setUser = (user) => ({
@@ -89,6 +90,7 @@ export default function reducer(state = initialState, action) {
             return {user: action.payload}
         case REMOVE_USER:
             return {user: null}
+        case UPDATE_USER_TAGS:
         default:
             return state;
     }

@@ -56,7 +56,7 @@ const UserPage = () => {
 
   function addUserTag(e){
     e.preventDefault();
-    
+
   }
 
   return (
@@ -123,10 +123,10 @@ const UserPage = () => {
             {user.tags && (
               <>
                 <ul>
-                  {user.tags.map((e, i) => (
+                  {Object.values(user.tags).map((tag, i) => (
                     <li key={`user_tag_key_${i}`}>
-                      {e}{' '}
-                      {editTags && <button onClick={removeUserTag}>X</button>}
+                      {tag.tag}{' '}
+                      {editTags && <button onClick={removeUserTag(tag.id)}>X</button>}
                     </li>
                   ))}
                 </ul>
