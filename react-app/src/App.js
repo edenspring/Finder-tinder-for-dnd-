@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import UserPage from "./components/userPage/userPage";
+import Group from "./components/groups/group"
+import NewGroup from "./components/groups/newgroup"
 import { authenticate } from "./store/session";
 
 function App() {
@@ -45,6 +47,12 @@ function App() {
         <ProtectedRoute path="/" exact={true} >
           <h1>My Home Page</h1>
           <UserPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/group" exact={true}>
+          <Group />
+        </ProtectedRoute>
+        <ProtectedRoute path="/groups/new" exact={true}>
+          <NewGroup />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

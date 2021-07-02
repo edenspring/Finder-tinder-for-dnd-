@@ -9,22 +9,25 @@ class Group(db.Model):
     name = db.Column(db.String(75), nullable=False)
     game_rules = db.Column(db.String(50))
     recruiting = db.Column(db.Boolean, default=True)
+    group_photo = db.Column(db.String(250))
 
-    user = db.relationship('User', backref='groups')
+
 
     tags = db.relationship(
         'Tag',
         primaryjoin='and_(Tag.taggable_type=="group", foreign(Tag.taggable_id)==Group.id)',
         lazy='select',
+        cascade='all, delete',
     )
 
     def to_dict(self):
+        tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
         return {
             'id': self.id,
             'user_id': self.user_id,
             'name': self.name,
             'game_rules': self.game_rules,
             'recruiting': self.recruiting,
-            'user': self.user.to_dict(),
-            'tags': [tag.tag for tag in self.tags]
+            'group_photo': self.group_photo,
+            'tags': tags_dict,
         }

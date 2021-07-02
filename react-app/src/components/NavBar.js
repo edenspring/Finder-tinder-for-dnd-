@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+  const user = useSelector(state => ({...state.session.user}))
+  const group = useSelector(state => ({...state.group}))
+
+  let groupPath = user.group ? '/group' : '/groups/new'
+
+  useEffect(()=>{
+
+  },[])
+
+  if (user.group) groupPath = '/group'
+  else groupPath = '/groups/new'
+
+  console.log(Object.keys(group), 'weeeooooweeeeooo')
+
   return (
     <nav>
       <ul>
@@ -25,6 +40,19 @@ const NavBar = () => {
           <NavLink to="/users" exact={true} activeClassName="active">
             Users
           </NavLink>
+        </li>
+        <li>
+          {Object.keys(group).length ? (
+          <NavLink to='/group' exact={true} activeClassName="active">
+            Group
+          </NavLink>
+
+          ):
+          (
+            <NavLink to='/groups/new' exact={true} activeClassName="active">
+              New Group
+            </NavLink>
+          )}
         </li>
         <li>
           <LogoutButton />

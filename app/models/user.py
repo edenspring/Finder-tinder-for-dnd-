@@ -20,6 +20,8 @@ class User(db.Model, UserMixin):
         lazy='select',
     )
 
+    group = db.relationship('Group', backref='user', uselist=False)
+
     @property
     def password(self):
         return self.hashed_password
@@ -31,6 +33,10 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def group_dict(self):
+        if self.group is not None:
+            return self.group.to_dict()
+
     def to_dict(self):
         tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
         return {
@@ -40,6 +46,7 @@ class User(db.Model, UserMixin):
             "photo": self.user_photo,
             "about": self.about,
             "looking_for_group": self.looking_for_group,
-            "tags": tags_dict
+            "tags": tags_dict,
+            "group": self.group_dict()
 
         }

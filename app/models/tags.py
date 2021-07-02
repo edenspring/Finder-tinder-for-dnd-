@@ -44,6 +44,6 @@ class Tag(db.Model):
             'taggable_id': self.taggable_id,
             'taggable_type': self.taggable_type,
             'tag': self.tag,
-            'tagged_entity': self.tagged(),
+            # 'tagged_entity': self.tagged(),
             'parent_id': self.parent_id()
         }
