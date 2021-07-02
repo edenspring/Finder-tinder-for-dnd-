@@ -43,6 +43,7 @@ export const createTag = (tagData) => async(dispatch) => {
   }
   if (data.taggable_type == 'user') dispatch(updateUserTags(data))
   else if (data.taggble_type == 'group'){
-    dispatch()
+    dispatch(updateGroupTags(data))
+    dispatch(updateUserGroupTags(data))
   }
 }

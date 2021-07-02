@@ -30,14 +30,21 @@ const Group = () => {
   function updateGroup() {
     return;
   }
+
   function removeGroupTag(id, e) {
     dispatch(tagActions.removeTag(id));
     e.closest('li').remove();
     e.remove();
   }
 
-  function createGroupTag() {
-    const data = {};
+  function createGroupTag(e){
+    e.preventDefault();
+    const data = {
+      'taggable_id': group.id,
+      'taggable_type': 'group',
+      'tag': newTag
+    }
+    dispatch(tagActions.createTag(data))
   }
   console.log('+++++', group);
 
