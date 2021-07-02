@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import * as groupActions from '../../store/group';
 import * as tagActions from '../../store/tag';
@@ -24,6 +25,7 @@ const Group = () => {
   const [newPhoto, setNewPhoto] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {}, []);
 
@@ -46,6 +48,11 @@ const Group = () => {
       tag: newTag,
     };
     dispatch(tagActions.createTag(data));
+  }
+
+  function deleteGroup() {
+    dispatch(groupActions.deleteGroup(group.id))
+    history.push('/')
   }
 
   return (
@@ -99,39 +106,42 @@ const Group = () => {
                 </form>
               </>
             )}
-          </div>
-          {editTags && (
-            <div className="userpage_edittags__div">
-              <form onSubmit={createGroupTag}>
-                <input
-                  onChange={(e) => setNewTag(e.target.value)}
-                  placeholder="Enter new tag..."
-                />
-                <button type="submit">Add new tag</button>
-              </form>
-            </div>
-          )}
-          <div className="group_tags__div">
-            Tags:
-            {group.tags && (
-              <>
-                <ul>
-                  {Object.values(group.tags).map((tag, i) => (
-                    <li key={`group_tag_key_${i}`}>
-                      {tag.tag}{' '}
-                      {editTags && (
-                        <button
-                          onClick={(e) => removeGroupTag(tag.id, e.target)}
-                        >
-                          X
-                        </button>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </>
+            {editTags && (
+              <div className="group_edittags__div">
+                <form onSubmit={createGroupTag}>
+                  <input
+                    onChange={(e) => setNewTag(e.target.value)}
+                    placeholder="Enter new tag..."
+                  />
+                  <button type="submit">Add new tag</button>
+                </form>
+              </div>
             )}
-            <button onClick={() => setEditTags(!editTags)}>Edit tags</button>
+            <div className="group_tags__div">
+              Tags:
+              {group.tags && (
+                <>
+                  <ul>
+                    {Object.values(group.tags).map((tag, i) => (
+                      <li key={`group_tag_key_${i}`}>
+                        {tag.tag}{' '}
+                        {editTags && (
+                          <button
+                            onClick={(e) => removeGroupTag(tag.id, e.target)}
+                          >
+                            X
+                          </button>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              <button onClick={() => setEditTags(!editTags)}>Edit tags</button>
+            </div>
+            <div className="group_delete__div">
+              <button className="group_delete__button" onClick={()=>deleteGroup()}>Delete Group?</button>
+            </div>
           </div>
         </>
       )}

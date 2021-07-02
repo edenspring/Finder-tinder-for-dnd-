@@ -17,6 +17,7 @@ class Group(db.Model):
         'Tag',
         primaryjoin='and_(Tag.taggable_type=="group", foreign(Tag.taggable_id)==Group.id)',
         lazy='select',
+        cascade='all, delete',
     )
 
     def to_dict(self):

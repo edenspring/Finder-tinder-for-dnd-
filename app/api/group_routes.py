@@ -40,3 +40,17 @@ def edit_group(id):
     db.session.add(user)
     db.session.commit()
     return user.to_dict()
+
+@group_routes.route('/delete/<int:id>', methods=['DELETE'])
+@login_required
+def delete_group(id):
+    user_id = int(current_user.id)
+    group_for_deletion = db.session.query(Group).get(id)
+    if group_for_deletion.user_id != user_id:
+        return "Not allowed"
+    elif group_for_deletion.user_id == user_id:
+        db.session.delete(group_for_deletion)
+        db.session.commit()
+        return "deleted"
+    else:
+        return "unknown issue"

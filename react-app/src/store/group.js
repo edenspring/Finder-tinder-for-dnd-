@@ -45,10 +45,20 @@ export const createGroup = (data) => async (dispatch) => {
   if (group && group.errors) {
     return group;
   } else {
-    dispatch(setGroup(group));
     dispatch(updateUserGroup(group));
+    dispatch(setGroup(group));
   }
 };
+
+export const deleteGroup = (id) => async (dispatch) => {
+  const response = await fetch(`/api/groups/delete/${id}`,{
+    method: 'DELETE',
+  })
+  // const data = await response.json()
+  // console.log(data)
+  dispatch(updateUserGroup({}))
+  dispatch(setGroup({}))
+}
 
 const initialState = {};
 

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import * as groupActions from '../../store/group';
 import * as tagActions from '../../store/tag';
@@ -15,6 +16,7 @@ const NewGroup = () => {
       group_photo: photo,
     };
     dispatch(groupActions.createGroup(data));
+    history.push('/group')
   }
 
   const user = useSelector((state) => state.session.user);
@@ -24,6 +26,7 @@ const NewGroup = () => {
   const [photo, setGroupPhoto] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <>
