@@ -52,10 +52,11 @@ const UserPage = () => {
   }
 
   function removeUserTag(id, e) {
+    // setEditTags(!editTags)
     console.log('remove_Tag_function')
-    dispatch(tagActions.removeTag(id))
-    e.closest('li').remove();
-    e.remove()
+    dispatch(tagActions.removeTag(id, 'user'))
+    // e.closest('li').remove();
+    // e.remove()
   }
 
   function addUserTag(e){
@@ -71,7 +72,7 @@ const UserPage = () => {
   function enableTagEdit(e){
     e.preventDefault();
     e.stopPropagation();
-    setEditTags(true);
+    setEditTags(!editTags);
   }
 
   return (
@@ -145,7 +146,7 @@ const UserPage = () => {
                     </li>
                   ))}
                 </ul>
-                <button onClick={(e) => enableTagEdit(e)}>Edit tags</button>
+                <button onClick={(e) => enableTagEdit(e)}>{editTags ? 'Done Editing' : 'Edit Tags'}</button>
                 {editTags && (
                   <>
                     <form onSubmit={addUserTag}>

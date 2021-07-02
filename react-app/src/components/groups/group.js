@@ -32,9 +32,10 @@ const Group = () => {
   }
 
   function removeGroupTag(id, e) {
-    dispatch(tagActions.removeTag(id));
-    e.closest('li').remove();
-    e.remove();
+    // setEditTags(!editTags)
+    dispatch(tagActions.removeTag(id, 'group'));
+    // e.closest('li').remove();
+    // e.remove();
   }
 
   function createGroupTag(e) {
@@ -99,6 +100,17 @@ const Group = () => {
               </>
             )}
           </div>
+          {editTags && (
+            <div className="userpage_edittags__div">
+              <form onSubmit={createGroupTag}>
+                <input
+                  onChange={(e) => setNewTag(e.target.value)}
+                  placeholder="Enter new tag..."
+                />
+                <button type="submit">Add new tag</button>
+              </form>
+            </div>
+          )}
           <div className="group_tags__div">
             Tags:
             {group.tags && (
@@ -117,22 +129,9 @@ const Group = () => {
                     </li>
                   ))}
                 </ul>
-                  </>
-                )}
-                <button onClick={() => setEditTags(!editTags)}>
-                  Edit tags
-                </button>
-                {editTags && (
-                  <>
-                    <form onSubmit={createGroupTag}>
-                      <input
-                        onChange={(e) => setNewTag(e.target.value)}
-                        placeholder="Enter new tag..."
-                      />
-                      <button type="submit">Add new tag</button>
-                    </form>
               </>
             )}
+            <button onClick={() => setEditTags(!editTags)}>Edit tags</button>
           </div>
         </>
       )}

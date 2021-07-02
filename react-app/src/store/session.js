@@ -6,6 +6,7 @@ const REMOVE_USER = 'session/REMOVE_USER';
 const UPDATE_USER_TAGS = 'session/UPDATE_USER_TAGS';
 const UPDATE_USER_GROUP = 'session/UPDATE_USER_GROUP';
 const UPDATE_USER_GROUP_TAGS = 'session/UPDATE_USER_GROUP_TAGS';
+const REMOVE_USER_TAG = "session/REMOVE_USER_TAG"
 
 // action creators
 const setUser = (user) => ({
@@ -112,6 +113,13 @@ export default function reducer(state = initialState, action) {
         id: action.payload.id,
         tag: action.payload.tag,
       };
+    case REMOVE_USER_TAG:
+        console.log('hitting remove user tag reducer route')
+        newState={...state};
+        console.log(newState)
+        delete(newState.user.tags[action.payload]);
+        console.log(newState)
+        return newState;
     default:
       return state;
   }

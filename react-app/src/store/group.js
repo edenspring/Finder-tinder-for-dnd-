@@ -3,6 +3,7 @@ const SET_GROUP = 'group/SET_GROUP';
 const UPDATE_USER_GROUP = 'session/UPDATE_USER_GROUP';
 const UPDATE_GROUP_TAGS = '/group/UPDATE_GROUP_TAGS';
 const UPDATE_USER_GROUP_TAGS = 'session/UPDATE_USER_GROUP_TAGS';
+const REMOVE_GROUP_TAG = "group/REMOVE_GROUP_TAG"
 
 //action creators
 export const setGroup = (group) => ({
@@ -63,6 +64,10 @@ export default function reducer(state = initialState, action) {
         id: action.payload.id,
         tag: action.payload.tag,
       };
+      return newState;
+    case REMOVE_GROUP_TAG:
+      newState = {...state};
+      delete(newState.tags[action.payload]);
       return newState;
     default:
       return initialState;
