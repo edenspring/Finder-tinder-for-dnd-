@@ -1,11 +1,28 @@
 //constants
 const SET_GROUP = 'group/SET_GROUP';
+const UPDATE_USER_GROUP = "session/UPDATE_USER_GROUP"
 const UPDATE_GROUP_TAGS = '/group/UPDATE_GROUP_TAGS'
+const UPDATE_USER_GROUP_TAGS = "session/UPDATE_USER_GROUP_TAGS"
 
 //action creators
 export const setGroup = (group) => ({
   type: SET_GROUP,
   payload: group
+})
+
+export const updateUserGroup = (group) => ({
+  type: UPDATE_USER_GROUP,
+  payload: group
+})
+
+export const updateUserGroupTags = (tags) => ({
+  type: UPDATE_USER_GROUP_TAGS,
+  payload: tags,
+})
+
+export const updateGroupTags = (tags) => ({
+  type: UPDATE_GROUP_TAGS,
+  payload: tags,
 })
 
 //thunkitronics
@@ -28,6 +45,7 @@ export const createGroup = (data) => async(dispatch) => {
     return group;
   } else {
     dispatch(setGroup(group));
+    dispatch(updateUserGroup(group))
   }
 };
 

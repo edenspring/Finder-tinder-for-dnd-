@@ -20,6 +20,7 @@ class Group(db.Model):
     )
 
     def to_dict(self):
+        tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
         return {
             'id': self.id,
             'user_id': self.user_id,
@@ -27,5 +28,5 @@ class Group(db.Model):
             'game_rules': self.game_rules,
             'recruiting': self.recruiting,
             'group_photo': self.group_photo,
-            'tags': [tag.tag for tag in self.tags]
+            'tags': tags_dict,
         }
