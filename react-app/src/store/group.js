@@ -42,5 +42,7 @@ export default function reducer(state = initialState, action) {
       case UPDATE_GROUP_TAGS:
           newState = action.payload;
           return newState;
+      default:
+        return initialState
   }
 }

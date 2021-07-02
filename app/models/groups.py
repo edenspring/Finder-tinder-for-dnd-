@@ -9,8 +9,9 @@ class Group(db.Model):
     name = db.Column(db.String(75), nullable=False)
     game_rules = db.Column(db.String(50))
     recruiting = db.Column(db.Boolean, default=True)
+    group_photo = db.Column(db.String(250))
 
-    
+
 
     tags = db.relationship(
         'Tag',
@@ -25,5 +26,6 @@ class Group(db.Model):
             'name': self.name,
             'game_rules': self.game_rules,
             'recruiting': self.recruiting,
+            'group_photo': self.group_photo,
             'tags': [tag.tag for tag in self.tags]
         }

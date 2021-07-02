@@ -1,53 +1,137 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
-import * as groupActions from '../../store/group'
+import * as groupActions from '../../store/group';
+import * as tagActions from '../../store/tag';
 
 const Group = () => {
-  const group = useSelector((state)=> ({...state.group}))
-  const user = useSelector ((state) => state.session.user)
-  const [groupName, setGroupName] = useState("");
-  const [rules, setRules] = useState("");
-  const [recruiting, setRecruiting] = useState(false)
+  const group = useSelector((state) => ({...state.group}));
+  const user = useSelector((state) => state.session.user);
+  const [groupName, setGroupName] = useState('');
+  const [rules, setRules] = useState('');
+  const [recruiting, setRecruiting] = useState(false);
+  const [photo, setGroupPhoto] = useState('');
 
-  const dispatch = useDispatch()
+  const [editName, setEditName] = useState(false);
+  const [editRules, setEditRules] = useState(false);
+  const [editRecruiting, setEditRecruiting] = useState(false);
+  const [editTags, setEditTags] = useState(false);
 
-  useEffect(()=>{},[])
+  const [newName, setNewName] = useState(group.name);
+  const [newRules, setNewRules] = useState(group.game_rules);
+  const [newRecruiting, setNewRecruiting] = useState(group.recruiting);
+  const [newTag, setNewTag] = useState('');
+  const [newPhoto, setNewPhoto] = useState('');
 
-  function createGroup(e){
-    e.preventDefault();
-    const data = {
-      'user_id': user.id,
-      'name' : groupName,
-      'game_rules': rules,
-      recruiting,
-    }
-    dispatch(groupActions.createGroup(data))
+  const dispatch = useDispatch();
+
+  useEffect(() => {}, []);
+
+  function updateGroup() {
+    return;
   }
+  function removeGroupTag(id, e) {
+    dispatch(tagActions.removeTag(id));
+    e.closest('li').remove();
+    e.remove();
+  }
+
+  function createGroupTag() {
+    const data = {};
+  }
+  console.log('+++++', group);
+
   return (
     <>
-    {group &&
-    <>
-    </> }
-    {!group && (
-    <form onSubmit={createGroup}>
-      <div className='groupform_name__div'>
-        <label>Group Name: </label>
-        <input placeholder='Group Name'> </input>
-      </div>
-      <div className='groupform_rules__div'>
-        <label>Ruleset: </label>
-        <input placeholder='5e, Pathfinder2e, etc....'></input>
-      </div>
-      <div className='groupform_recruiting__div'>
-        <label>Currently Recruiting?: </label>
-        <input type='checkbox' checked={recruiting} onClick={()=>setRecruiting(!recruiting)} />
-      </div>
-      <submit>Create group!</submit>
-    </form>)
-  }
+      {group.name && (
+        <>
+          <div className="usergroup_container__div">
+            <div className="group_name__div">Group Name: {group.name}</div>
+            <button onClick={() => setEditName(!editName)}>Edit name?</button>
+            {editName && (
+              <>
+                <form onSubmit={updateGroup}>
+                  <input
+                    onChange={(e) => setNewName(e.target.value)}
+                    defaultValue={group.name}
+                  />
+                  <button type="submit">Update Group Name</button>
+                </form>
+              </>
+            )}
+            <div className="group_rules__div">Rulest: {group.game_rules}</div>
+            <button onClick={() => setEditRules(!editRules)}>
+              Edit rules?
+            </button>
+            {editRules && (
+              <>
+                <form onSubmit={updateGroup}>
+                  <input
+                    onChange={(e) => setNewRules(e.target.value)}
+                    defaultValue={group.game_rules}
+                  />
+                  <button type="submit">Update Ruleset</button>
+                </form>
+              </>
+            )}
+            <div className="group_recruiting__div">
+              Currently Recruiting? : {group.recruiting ? 'Yes' : 'No'}
+            </div>
+            <button onClick={() => setEditRecruiting(!editRecruiting)}>
+              Edit
+            </button>
+            {editRecruiting && (
+              <>
+                <form onSubmit={updateGroup}>
+                  <input
+                    type="checkbox"
+                    checked={group.recruiting}
+                    onChange={(e) => setNewRecruiting(!newRecruiting)}
+                  />
+                  <button type="submit">Update Recruiting Status</button>
+                </form>
+              </>
+            )}
+          </div>
+          <div className="group_tags__div">
+            Tags:
+            {group.tags && (
+              <>
+                <ul>
+                  {Object.values(group.tags).map((tag, i) => (
+                    <li key={`group_tag_key_${i}`}>
+                      {tag.tag}{' '}
+                      {editTags && (
+                        <button
+                          onClick={(e) => removeGroupTag(tag.id, e.target)}
+                        >
+                          X
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={(e) => setEditTags(editTags)}>
+                  Edit tags
+                </button>
+                {editTags && (
+                  <>
+                    <form onSubmit={createGroupTag}>
+                      <input
+                        onChange={(e) => setNewTag(e.target.value)}
+                        placeholder="Enter new tag..."
+                      />
+                      <button type="submit">Add new tag</button>
+                    </form>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </>
-  )
-}
+  );
+};
 
 export default Group;

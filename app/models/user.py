@@ -33,6 +33,10 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    def group_dict(self):
+        if self.group is not None:
+            return self.group.to_dict()
+
     def to_dict(self):
         tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
         return {
@@ -43,6 +47,6 @@ class User(db.Model, UserMixin):
             "about": self.about,
             "looking_for_group": self.looking_for_group,
             "tags": tags_dict,
-            "group": self.group.to_dict(),
+            "group": self.group_dict()
 
         }

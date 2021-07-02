@@ -1,8 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+  const user = useSelector(state => ({...state.session.user}))
+
+  let groupPath;
+
+  if (user.group) groupPath = '/group'
+  else groupPath = '/groups/new'
+
   return (
     <nav>
       <ul>
@@ -24,6 +32,11 @@ const NavBar = () => {
         <li>
           <NavLink to="/users" exact={true} activeClassName="active">
             Users
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to={groupPath} exact={true} activeClassName="active">
+            Group
           </NavLink>
         </li>
         <li>
