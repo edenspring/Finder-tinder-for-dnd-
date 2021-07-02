@@ -59,11 +59,10 @@ export default function reducer(state = initialState, action) {
       return newState;
     case UPDATE_GROUP_TAGS:
       newState = {...state};
-      newState,
-        (tags[action.payload.id] = {
-          id: action.payload.id,
-          tag: action.payload.tag,
-        });
+      newState.tags[action.payload.id] = {
+        id: action.payload.id,
+        tag: action.payload.tag,
+      };
       return newState;
     default:
       return initialState;

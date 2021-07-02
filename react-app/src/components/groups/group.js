@@ -37,16 +37,15 @@ const Group = () => {
     e.remove();
   }
 
-  function createGroupTag(e){
+  function createGroupTag(e) {
     e.preventDefault();
     const data = {
-      'taggable_id': group.id,
-      'taggable_type': 'group',
-      'tag': newTag
-    }
-    dispatch(tagActions.createTag(data))
+      taggable_id: group.id,
+      taggable_type: 'group',
+      tag: newTag,
+    };
+    dispatch(tagActions.createTag(data));
   }
-  console.log('+++++', group);
 
   return (
     <>
@@ -118,7 +117,9 @@ const Group = () => {
                     </li>
                   ))}
                 </ul>
-                <button onClick={(e) => setEditTags(editTags)}>
+                  </>
+                )}
+                <button onClick={() => setEditTags(!editTags)}>
                   Edit tags
                 </button>
                 {editTags && (
@@ -130,8 +131,6 @@ const Group = () => {
                       />
                       <button type="submit">Add new tag</button>
                     </form>
-                  </>
-                )}
               </>
             )}
           </div>
