@@ -11,7 +11,11 @@ export const getMatchableUsers = () => async(dispatch) => {
   dispatch(setMatchableUsers(data))
 }
 
-const initialState = {users: null, groups: null}
+export const matchUserToGroup = (data) => async(dispatch) => {
+
+}
+
+const initialState = {users: null, groups: null, usersMatchedtoGroup:null, groupsMatchedtoUser:null,}
 
 export default function reducer(state=initialState, action){
   let newState;

@@ -10,7 +10,7 @@ import User from "./components/User";
 import UserPage from "./components/userPage/userPage";
 import Group from "./components/groups/group"
 import NewGroup from "./components/groups/newgroup"
-import Card from "./components/finder-cards/card"
+import UserCard from "./components/finder-cards/usercard"
 import { authenticate } from "./store/session";
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
           <NewGroup />
         </ProtectedRoute>
         <Route path="/card">
-          <Card />
+          <UserCard />
         </Route>
       </Switch>
     </BrowserRouter>

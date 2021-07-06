@@ -3,16 +3,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as userActions from '../../store/user';
 import * as tagActions from '../../store/tag';
 import * as matchActions from '../../store/matches';
+import '../css/usercard.css';
 
 import TinderCard from 'react-tinder-card';
 
 // ...
 
-const Card = () => {
+const UserCard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => ({...state.session.user}));
   const users = useSelector((state) => state.matches.users);
   const [currentCard, setCurrentCard] = useState('');
+
+  const groupId = 1;
 
   let index = 1;
 
@@ -23,6 +26,9 @@ const Card = () => {
 
   const onSwipe = (direction) => {
     console.log('You swiped: ' + direction);
+    if (direction == 'right'){
+      return
+    }
   };
 
   const onCardLeftScreen = (myIdentifier) => {
@@ -45,6 +51,10 @@ const Card = () => {
             onCardLeftScreen={() => onCardLeftScreen(user.username)}
           >
             <div className="tindercard_content__div">
+              <div
+                className="tindercard_image__div"
+                style={{backgroundImage: `url(${user.photo})`}}
+              ></div>
               <div className="tindercard_username__div">{user.username}</div>
               <div className="tindercard_about__div">{user.about}</div>
               {user.tags.length &&
@@ -57,4 +67,4 @@ const Card = () => {
     </div>
   );
 };
-export default Card;
+export default UserCard;
