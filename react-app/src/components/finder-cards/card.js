@@ -28,49 +28,33 @@ const Card = () => {
   const onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + ' left the screen');
   };
-  if (users) setCard(index);
-
-  function setCard(i) {
-    if (users) {
-      let currentUser = users[i];
-      if (index < users.length) index++;
-      return (
-        <>
-          <TinderCard
-            onSwipe={setCard(index)}
-            onCardLeftScreen={() => onCardLeftScreen('fooBar')}
-            preventSwipe={['right', 'left']}
-          >
-            <div className="card_username__div">{currentUser.username}</div>
-            <div className="card_userpic__div">
-              <img src={currentUser.photo} />
-            </div>
-            <div className="card_userabout__div">{currentUser.about}</div>
-            <div></div>
-          </TinderCard>
-        </>
-      );
-    }
-  }
 
   return (
-    <>
-      {' '}
-      {users && (
-        <TinderCard
-          onSwipe={setCard(index)}
-          onCardLeftScreen={() => onCardLeftScreen('fooBar')}
-          preventSwipe={['right', 'left']}
-        >
-          <div className="card_username__div">{users[0].username}</div>
-          <div className="card_userpic__div">
-            <img src={users[0].photo} />
-          </div>
-          <div className="card_userabout__div">{users[0].about}</div>
-          <div></div>
-        </TinderCard>
-      )}
-    </>
+    //the following code was based off of: https://github.com/3DJakob/react-tinder-card-demo/blob/master/src/examples/Advanced.js,
+    //this repo is a demo for the TinderCard package
+    //I chose to base my code off of this demo after attempting to get dynamic renders but struggling
+    //to execute. I hope to find a way to tweak and get the code working as I intend rather than
+    //cribbing execution from the demo
+    <div className="matches_container__div">
+      {users &&
+        users.map((user, index) => (
+          <TinderCard
+            className="potential_match__card"
+            key={user.username}
+            onSwipe={(direction) => onSwipe(direction)}
+            onCardLeftScreen={() => onCardLeftScreen(user.username)}
+          >
+            <div className="tindercard_content__div">
+              <div className="tindercard_username__div">{user.username}</div>
+              <div className="tindercard_about__div">{user.about}</div>
+              {user.tags.length &&
+                user.tags.map((tag, index) => (
+                  <div key={tag.tag}>{tag.tag}</div>
+                ))}
+            </div>
+          </TinderCard>
+        ))}
+    </div>
   );
 };
 export default Card;
