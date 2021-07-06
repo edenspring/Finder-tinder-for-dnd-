@@ -59,6 +59,7 @@ export default function reducer(state = initialState, action) {
     case SET_MATCHABLE_GROUPS:
       newState = {...state}
       newState.groups = Object.values(action.payload)
+      return newState;
     default:
       return state;
   }

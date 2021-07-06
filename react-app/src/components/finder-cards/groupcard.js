@@ -16,7 +16,7 @@ const GroupCard = () => {
 
   const onSwipe = (direction, id) => {
     if (direction == 'right') {
-      const data = {user_id: id, group_id: id, context: 'user'};
+      const data = {user_id: user.id, group_id: id, context: 'user'};
       dispatch(matchActions.makeMatch(data));
     }
     if (direction == 'left') {
@@ -47,10 +47,11 @@ const GroupCard = () => {
             <div className="tindercard_content__div">
               <div
                 className="tindercard_image__div"
-                style={{backgroundImage: `url(${group.photo})`}}
+                style={{backgroundImage: `url(${group.group_photo})`}}
               ></div>
               <div className="tindercard_groupname__div">{group.name}</div>
-              <div className="tindercard_grouprules__div">{group.rules}</div>
+              <div className="tindercard_grouprules__div">{group.game_rules}</div>
+              <div className="tindercard_groupabout__div">{group.about}</div>
               {group.tags.length &&
                 group.tags.map((tag, index) => (
                   <div key={tag.tag}>{tag.tag}</div>

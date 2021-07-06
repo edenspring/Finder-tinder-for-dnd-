@@ -80,6 +80,6 @@ export default function reducer(state = initialState, action) {
       delete(newState.tags[action.payload]);
       return newState;
     default:
-      return initialState;
+      return state;
   }
 }

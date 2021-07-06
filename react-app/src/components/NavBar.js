@@ -9,7 +9,9 @@ const NavBar = () => {
 
   let groupPath = user.group ? '/group' : '/groups/new';
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  
+  }, []);
 
   if (user.group) groupPath = '/group';
   else groupPath = '/groups/new';
