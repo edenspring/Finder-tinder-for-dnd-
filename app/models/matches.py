@@ -20,7 +20,6 @@ class Match(db.Model):
       'group_id':self.group_id,
       'user_matched':self.user_matched,
       'group_matched':self.group_matched,
-      'user': self.user.to_dict(),
-      'group':self.group.to_dict(),
-
+      'user': self.user.username,
+      'group':self.group.name,
     }

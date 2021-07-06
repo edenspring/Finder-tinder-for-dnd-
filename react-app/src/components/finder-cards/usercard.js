@@ -27,8 +27,12 @@ const UserCard = () => {
   const onSwipe = (direction, id) => {
     console.log('You swiped: ' + direction);
     if (direction == 'right') {
-      const data = {user_id: id, group_id: groupId, context: 'group'};
+      const data = {user_id: id, group_id: groupId, context: 'user'};
       dispatch(matchActions.makeMatch(data));
+    }
+    if (direction == 'left'){
+      const data = {user_id: id, group_id: groupId, context: 'user'};
+      dispatch(matchActions.unMatch(data));
     }
   };
 

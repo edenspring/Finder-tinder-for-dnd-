@@ -19,11 +19,27 @@ def get_or_create_usermatch():
     if match is None:
         if context == 'group':
             new_match = Match(**{
-                'user_id':user_id,
-                'group_id':group_id,
-                'group_matched':True,}
+                'user_id': user_id,
+                'group_id': group_id,
+                'group_matched': True, }
             )
             db.session.add(new_match)
             db.session.commit()
-    print(match, 'yyyyyyyyyyyyy')
-    return "no"
+            return new_match
+        elif context == 'user':
+            new_match = Match(**{
+                'user_id': user_id,
+                'group_id': group_id,
+                'user_matched': True, }
+            )
+            db.session.add(new_match)
+            db.session.commit()
+            return new_match
+    else:
+      if context == 'group':
+        match.group_matched = True
+      elif context == 'user':
+        match.user_matched = True
+      db.session.add(match)
+      db.session.commit()
+      return match.to_dict()

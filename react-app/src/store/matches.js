@@ -21,6 +21,12 @@ export const makeMatch = (data) => async (dispatch) => {
   console.log(responseData, 'wubwubwubwub')
 };
 
+export const unMatch = (data) => async (dispatch) => {
+  const response = await fetch('/api/matches/unmatch', {
+    method: ''
+  })
+}
+
 const initialState = {
   users: null,
   groups: null,
