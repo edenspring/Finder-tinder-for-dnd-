@@ -23,7 +23,6 @@ def edit_group(id):
     res = request.get_json()
     if (user_id != res['user_id']):
         return 'Not allowed'
-    print('>>>>', res['looking_for_group'])
     group = db.session.query(Group).get(id)
 
     if(group.name != res['name']):
@@ -33,10 +32,7 @@ def edit_group(id):
     if(user.hashed_password != generate_password_hash(res['password'])):
         user.hashed_password = generate_password_hash(res['password'])
     if(user.looking_for_group != res['looking_for_group']):
-        print('!!!!!penis!!!!!', user.looking_for_group)
-
         user.looking_for_group = res['looking_for_group']
-        print(user.looking_for_group)
     db.session.add(user)
     db.session.commit()
     return user.to_dict()
@@ -54,3 +50,14 @@ def delete_group(id):
         return "deleted"
     else:
         return "unknown issue"
+
+@group_routes.route('/matchable')
+@login_required
+def matchable_groups():
+    groups = db.session.query(Group).filter(Group.recruiting == True).all()
+    ret_groups = {}
+    for group in groups:
+        id = group.id
+        ret_groups[id] = group.to_dict()
+    print(ret_groups,'222222')
+    return ret_groups

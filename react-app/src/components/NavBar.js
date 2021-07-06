@@ -1,22 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {NavLink} from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
-  const user = useSelector(state => ({...state.session.user}))
-  const group = useSelector(state => ({...state.group}))
+  const user = useSelector((state) => ({...state.session.user}));
+  const group = useSelector((state) => ({...state.group}));
 
-  let groupPath = user.group ? '/group' : '/groups/new'
+  let groupPath = user.group ? '/group' : '/groups/new';
 
-  useEffect(()=>{
+  useEffect(() => {}, []);
 
-  },[])
+  if (user.group) groupPath = '/group';
+  else groupPath = '/groups/new';
 
-  if (user.group) groupPath = '/group'
-  else groupPath = '/groups/new'
-
-  console.log(Object.keys(group), 'weeeooooweeeeooo')
+  console.log(Object.keys(group), 'weeeooooweeeeooo');
 
   return (
     <nav>
@@ -43,16 +41,25 @@ const NavBar = () => {
         </li>
         <li>
           {Object.keys(group).length ? (
-          <NavLink to='/group' exact={true} activeClassName="active">
-            Group
-          </NavLink>
-
-          ):
-          (
-            <NavLink to='/groups/new' exact={true} activeClassName="active">
+            <>
+              <NavLink to="/group" exact={true} activeClassName="active">
+                Group
+              </NavLink>
+              <NavLink to="/recruit" exact={true} activeClassName="active">
+                Find Players
+              </NavLink>
+            </>
+          ) : (
+            <NavLink to="/groups/new" exact={true} activeClassName="active">
               New Group
             </NavLink>
           )}
+        </li>
+        <li></li>
+        <li>
+          <NavLink to="/join" exact={true} activeClassName="active">
+            Join a Group
+          </NavLink>
         </li>
         <li>
           <LogoutButton />
@@ -60,6 +67,6 @@ const NavBar = () => {
       </ul>
     </nav>
   );
-}
+};
 
 export default NavBar;

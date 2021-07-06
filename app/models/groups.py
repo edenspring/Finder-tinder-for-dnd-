@@ -10,6 +10,7 @@ class Group(db.Model):
     game_rules = db.Column(db.String(50))
     recruiting = db.Column(db.Boolean, default=True)
     group_photo = db.Column(db.String(250))
+    about = db.Column(db.Text)
 
 
 

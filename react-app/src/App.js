@@ -11,6 +11,7 @@ import UserPage from "./components/userPage/userPage";
 import Group from "./components/groups/group"
 import NewGroup from "./components/groups/newgroup"
 import UserCard from "./components/finder-cards/usercard"
+import GroupCard from "./components/finder-cards/groupcard"
 import { authenticate } from "./store/session";
 
 function App() {
@@ -55,9 +56,12 @@ function App() {
         <ProtectedRoute path="/groups/new" exact={true}>
           <NewGroup />
         </ProtectedRoute>
-        <Route path="/card">
+        <ProtectedRoute path="/recruit">
           <UserCard />
-        </Route>
+        </ProtectedRoute>
+        <ProtectedRoute path="/join">
+          <GroupCard />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
