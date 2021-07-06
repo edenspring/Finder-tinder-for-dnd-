@@ -24,10 +24,11 @@ const UserCard = () => {
     dispatch(matchActions.getMatchableUsers());
   }, [dispatch]);
 
-  const onSwipe = (direction) => {
+  const onSwipe = (direction, id) => {
     console.log('You swiped: ' + direction);
-    if (direction == 'right'){
-      return
+    if (direction == 'right') {
+      const data = {user_id: id, group_id: groupId, context: 'group'};
+      dispatch(matchActions.makeMatch(data));
     }
   };
 
@@ -47,7 +48,7 @@ const UserCard = () => {
           <TinderCard
             className="potential_match__card"
             key={user.username}
-            onSwipe={(direction) => onSwipe(direction)}
+            onSwipe={(direction) => onSwipe(direction, user.id)}
             onCardLeftScreen={() => onCardLeftScreen(user.username)}
           >
             <div className="tindercard_content__div">
