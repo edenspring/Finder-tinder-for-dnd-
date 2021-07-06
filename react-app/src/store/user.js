@@ -24,3 +24,5 @@ export const updateUser = (data) => async(dispatch) => {
     dispatch(setUser(user));
   }
 };
+
+
