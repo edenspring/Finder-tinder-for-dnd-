@@ -48,4 +48,5 @@ def get_or_create_usermatch():
 @login_required
 def get_user_matches(id):
     matches = db.session.query(Match).filter(Match.user_id == id and Match.user_matched is True).all()
-    return 
+    ret_dict = {match.id:match for match in matches}
+    return ret_dict

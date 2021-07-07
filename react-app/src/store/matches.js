@@ -87,7 +87,9 @@ export const makeMatch = (data) => async (dispatch) => {
 };
 
 export const getMatchedGroups = (userId) => async(dispatch) => {
-  const response = await fetch()
+  const response = await fetch(`/api/matches/users/${userId}`)
+  const fullMatch = [];
+  const partialMatch = [];
 }
 
 export const unMatch = (data) => async (dispatch) => {
