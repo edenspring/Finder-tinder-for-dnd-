@@ -29,13 +29,15 @@ def edit_group(id):
         group.name = res['name']
     if(group.group_photo != res['photo']):
         group.group_photo = res['photo']
-    if(user.hashed_password != generate_password_hash(res['password'])):
-        user.hashed_password = generate_password_hash(res['password'])
-    if(user.looking_for_group != res['looking_for_group']):
-        user.looking_for_group = res['looking_for_group']
-    db.session.add(user)
+    if(group.recruiting != res['recruiting']):
+       group.recruiting = res['recruiting']
+    if (group.about != res['about']):
+        group.about = res['about']
+    if (group.game_rules != res['game_rules']):
+        group.game_rules = res['game_rules']
+    db.session.add(group)
     db.session.commit()
-    return user.to_dict()
+    return group.to_dict()
 
 @group_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required

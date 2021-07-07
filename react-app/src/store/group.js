@@ -56,6 +56,9 @@ export const updateGroup = (data) => async (dispatch) => {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify
   });
+  const group = await response.json();
+  if (group && group.errors) return group;
+  else dispatch(setGroup(group))
 };
 
 export const deleteGroup = (id) => async (dispatch) => {

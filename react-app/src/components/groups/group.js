@@ -21,7 +21,7 @@ const Group = () => {
   const [newRecruiting, setNewRecruiting] = useState(group.recruiting);
   const [newTag, setNewTag] = useState('');
   const [newPhoto, setNewPhoto] = useState(group.group_photo);
-  const [newAbout, setNewAbout] = useState(group.about)
+  const [newAbout, setNewAbout] = useState(group.about);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -37,10 +37,9 @@ const Group = () => {
       recruiting: newRecruiting,
       group_photo: newPhoto,
       about: newAbout,
-    }
+    };
 
-    dispatch(groupActions(updateGroup(data)))
-
+    dispatch(groupActions(updateGroup(data)));
   }
 
   function removeGroupTag(id, e) {
@@ -85,7 +84,9 @@ const Group = () => {
             )}
             <div className="group_photo__div">
               <img src={group.group_photo} />
-              <button onClick={() => setEditPhoto(!editPhoto)}>Edit</button>
+              <button onClick={() => setEditPhoto(!editPhoto)}>
+                Edit Photo?
+              </button>
               {editPhoto && (
                 <>
                   <form onSubmit={updateGroup}>
@@ -117,7 +118,7 @@ const Group = () => {
               Currently Recruiting? : {group.recruiting ? 'Yes' : 'No'}
             </div>
             <button onClick={() => setEditRecruiting(!editRecruiting)}>
-              Edit
+              Edit Recruiting Status
             </button>
             {editRecruiting && (
               <>
@@ -143,6 +144,20 @@ const Group = () => {
               </div>
             )}
             <div className="group_about__div">About: {group.about}</div>
+            <button onClick={() => setEditAbout(!editAbout)}>
+              Edit About Group
+            </button>
+            {editAbout && (
+              <>
+                <form onSubmit={updateGroup}>
+                  <input
+                    onChange={(e) => setNewAbout(e.target.value)}
+                    placeholder={newAbout}
+                  />
+                  <button type='submit'>Update About Group</button>
+                </form>
+              </>
+            )}
             <div className="group_tags__div">
               Tags:
               {group.tags && (
