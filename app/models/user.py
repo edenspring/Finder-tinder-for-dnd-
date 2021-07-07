@@ -38,7 +38,8 @@ class User(db.Model, UserMixin):
             return self.group.to_dict()
 
     def to_dict(self):
-        tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
+        tags_dict = {tag.id: {'id': tag.id, 'tag': tag.tag}
+                     for tag in self.tags}
         return {
             "id": self.id,
             "username": self.username,
@@ -52,8 +53,9 @@ class User(db.Model, UserMixin):
         }
 
     def group_owner(self):
-        tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
-         return {
+        tags_dict = {tag.id: {'id': tag.id, 'tag': tag.tag}
+                     for tag in self.tags}
+        return {
             "id": self.id,
             "username": self.username,
             "email": self.email,

@@ -31,4 +31,5 @@ class Group(db.Model):
             'recruiting': self.recruiting,
             'group_photo': self.group_photo,
             'tags': tags_dict,
+            'owner': self.user.group_owner(),
         }

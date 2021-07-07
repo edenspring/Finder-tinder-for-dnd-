@@ -43,3 +43,9 @@ def get_or_create_usermatch():
       db.session.add(match)
       db.session.commit()
       return match.to_dict()
+
+@match_routes.route('/users/<int:id>', methods=["GET"])
+@login_required
+def get_user_matches(id):
+    matches = db.session.query(Match).filter(Match.user_id == id and Match.user_matched is True).all()
+    return 
