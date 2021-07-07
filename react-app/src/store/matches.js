@@ -24,10 +24,30 @@ const setFullyMatchedGroups = (groups) => ({
   payload: groups,
 });
 
+const setFullyMatchedUsers = (users) => ({
+  type: SET_FULLYMATCHED_USERS,
+  payload: users,
+})
+
 const addFullyMatchedGroup = (group) => ({
   type: ADD_FULLYMATCHED_GROUP,
   payload: group,
 });
+
+const addFullyMatchedUser = (user) => ({
+  type: ADD_FULLYMATCHED_USER,
+  payload: user,
+})
+
+const addPartiallyMatchedGroup = (group) => ({
+  type: ADD_PARTIALLYMATCHED_GROUP,
+  payload: group,
+})
+
+const addPartiallyMatchedUser = (user) => ({
+  type: ADD_PARTIALLYMATCHED_USER,
+  payload: user,
+})
 
 export const getMatchableUsers = () => async (dispatch) => {
   const response = await fetch('/api/users/matchable');
@@ -54,8 +74,21 @@ export const makeMatch = (data) => async (dispatch) => {
     if (data.context === 'user') {
       dispatch(addFullyMatchedGroup(responseData));
     }
+    else {
+      dispatch(addFullyMatchedUser(responseData))
+    }
+  }
+  else if (responseData.user_matched){
+    dispatch(addPartiallyMatchedGroup(responseData))
+  }
+  else if (respsonseData.group_matched){
+    dispatch(addPartiallyMatchedUser(responseData))
   }
 };
+
+export const getMatchedGroups = (userId) => async(dispatch) => {
+  const response = await fetch()
+}
 
 export const unMatch = (data) => async (dispatch) => {
   const response = await fetch('/api/matches/unmatch', {
