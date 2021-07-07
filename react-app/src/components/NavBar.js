@@ -9,9 +9,7 @@ const NavBar = () => {
 
   let groupPath = user.group ? '/group' : '/groups/new';
 
-  useEffect(() => {
-  
-  }, []);
+  useEffect(() => {}, []);
 
   if (user.group) groupPath = '/group';
   else groupPath = '/groups/new';
@@ -41,23 +39,25 @@ const NavBar = () => {
             Users
           </NavLink>
         </li>
-        <li>
-          {Object.keys(group).length ? (
-            <>
+        {Object.keys(group).length ? (
+          <>
+            <li>
               <NavLink to="/group" exact={true} activeClassName="active">
                 Group
               </NavLink>
+            </li>
+            <li>
               <NavLink to="/recruit" exact={true} activeClassName="active">
                 Find Players
               </NavLink>
-            </>
-          ) : (
-            <NavLink to="/groups/new" exact={true} activeClassName="active">
-              New Group
-            </NavLink>
-          )}
-        </li>
-        <li></li>
+            </li>
+          </>
+        ) : (
+          <NavLink to="/groups/new" exact={true} activeClassName="active">
+            New Group
+          </NavLink>
+        )}
+
         <li>
           <NavLink to="/join" exact={true} activeClassName="active">
             Join a Group
