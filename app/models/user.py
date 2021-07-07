@@ -50,3 +50,14 @@ class User(db.Model, UserMixin):
             "group": self.group_dict()
 
         }
+
+    def group_owner(self):
+        tags_dict = {tag.id: {'id':tag.id, 'tag':tag.tag} for tag in self.tags}
+         return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "photo": self.user_photo,
+            "about": self.about,
+            "tags": tags_dict,
+        }
