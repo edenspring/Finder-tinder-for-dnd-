@@ -1,5 +1,6 @@
 //constants
 const SET_GROUP = 'group/SET_GROUP';
+const REMOVE_GROUP ='group/REMOVE_GROUP'
 const UPDATE_USER_GROUP = 'session/UPDATE_USER_GROUP';
 const UPDATE_GROUP_TAGS = '/group/UPDATE_GROUP_TAGS';
 const UPDATE_USER_GROUP_TAGS = 'session/UPDATE_USER_GROUP_TAGS';
@@ -10,6 +11,10 @@ export const setGroup = (group) => ({
   type: SET_GROUP,
   payload: group,
 });
+
+export const removeGroup = (group) => ({
+  type: REMOVE_GROUP,
+})
 
 export const updateUserGroup = (group) => ({
   type: UPDATE_USER_GROUP,
@@ -54,7 +59,7 @@ export const updateGroup = (data) => async (dispatch) => {
   const response = await fetch(`/api/groups/${data.id}`, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify
+    body: JSON.stringify(data)
   });
   const group = await response.json();
   if (group && group.errors) return group;
@@ -90,6 +95,8 @@ export default function reducer(state = initialState, action) {
       newState = {...state};
       delete newState.tags[action.payload];
       return newState;
+    case REMOVE_GROUP:
+      return {}
     default:
       return state;
   }

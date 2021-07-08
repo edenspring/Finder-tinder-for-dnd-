@@ -12,6 +12,7 @@ import Group from "./components/groups/group"
 import NewGroup from "./components/groups/newgroup"
 import UserCard from "./components/finder-cards/usercard"
 import GroupCard from "./components/finder-cards/groupcard"
+import MatchedGroups from "./components/matches/matched_groups";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -61,6 +62,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/join">
           <GroupCard />
+        </ProtectedRoute>
+        <ProtectedRoute path="/matches/groups">
+          <MatchedGroups />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

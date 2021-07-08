@@ -26,10 +26,10 @@ const Group = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {}, []);
-
   function updateGroup(e) {
+    console.log(e);
     e.preventDefault();
+
     const data = {
       id: group.id,
       name: newName,
@@ -37,9 +37,10 @@ const Group = () => {
       recruiting: newRecruiting,
       group_photo: newPhoto,
       about: newAbout,
+      user_id: user.id,
     };
 
-    dispatch(groupActions(updateGroup(data)));
+    dispatch(groupActions.updateGroup(data));
   }
 
   function removeGroupTag(id, e) {
@@ -69,19 +70,21 @@ const Group = () => {
       {group.name && (
         <>
           <div className="usergroup_container__div">
-            <div className="group_name__div">Group Name: {group.name}</div>
-            <button onClick={() => setEditName(!editName)}>Edit name?</button>
-            {editName && (
-              <>
-                <form onSubmit={updateGroup}>
-                  <input
-                    onChange={(e) => setNewName(e.target.value)}
-                    defaultValue={group.name}
-                  />
-                  <button type="submit">Update Group Name</button>
-                </form>
-              </>
-            )}
+            <div className="group_name__div">
+              Group Name: {group.name}
+              <button type='button' onClick={() => setEditName(!editName)}>Edit name?</button>
+              {editName && (
+                <>
+                  <form onSubmit={updateGroup}>
+                    <input
+                      onChange={(e) => setNewName(e.target.value)}
+                      defaultValue={group.name}
+                    />
+                    <button type="submit">Update Group Name</button>
+                  </form>
+                </>
+              )}
+            </div>
             <div className="group_photo__div">
               <img src={group.group_photo} />
               <button onClick={() => setEditPhoto(!editPhoto)}>
@@ -132,6 +135,23 @@ const Group = () => {
                 </form>
               </>
             )}
+            <div className="group_about__div">About: {group.about}</div>
+            <button onClick={() => setEditAbout(!editAbout)}>
+              Edit About Group
+            </button>
+            {editAbout && (
+              <>
+                <form onSubmit={updateGroup}>
+                  <input
+                    onChange={(e) => setNewAbout(e.target.value)}
+                    placeholder={newAbout}
+                    />
+                  <button type="submit">Update About Group</button>
+                </form>
+              </>
+            )}
+            <div className="group_tags__div">
+              Tags:
             {editTags && (
               <div className="group_edittags__div">
                 <form onSubmit={createGroupTag}>
@@ -143,23 +163,6 @@ const Group = () => {
                 </form>
               </div>
             )}
-            <div className="group_about__div">About: {group.about}</div>
-            <button onClick={() => setEditAbout(!editAbout)}>
-              Edit About Group
-            </button>
-            {editAbout && (
-              <>
-                <form onSubmit={updateGroup}>
-                  <input
-                    onChange={(e) => setNewAbout(e.target.value)}
-                    placeholder={newAbout}
-                  />
-                  <button type='submit'>Update About Group</button>
-                </form>
-              </>
-            )}
-            <div className="group_tags__div">
-              Tags:
               {group.tags && (
                 <>
                   <ul>

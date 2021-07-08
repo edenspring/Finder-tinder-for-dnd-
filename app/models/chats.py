@@ -8,12 +8,24 @@ class Chat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     group_id = db.Column(db.Integer, db.ForeignKey(
         'groups.id'), nullable=False)
+    # group_id and user_id will get initial members of chat, if group.user_id
+    # == chat.user_id then it is the chat for the group as a whole and
+    # not between a group and a new match
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False,)
 
     group = db.relationship('Group', backref='chats')
+    user = db.relationship('User', backref='chats')
 
     def to_dict(self):
         return {
             'id': self.id,
-            'group_id': self.group_id,
-            'members_list': self.members_list,
+            'matched_group_info': {
+                'group_id': self.group.id,
+                'group_name': self.group.name,
+                'group_user': self.group.user.group_owner(),
+            },
+            'matched_user_info': {
+                'user_id': self.user.id,
+                'user_name':self.user.username,
+            }
         }

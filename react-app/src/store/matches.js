@@ -8,6 +8,7 @@ const ADD_FULLYMATCHED_GROUP = 'matches/ADD_FULLYMATCHED_GROUP';
 const ADD_FULLYMATCHED_USER = 'matches/ADD_FULLYMATCHED_USER';
 const ADD_PARTIALLYMATCHED_GROUP = 'matches/ADD_PARTIALLYMATCHED_GROUP';
 const ADD_PARTIALLYMATCHED_USER = 'matches/ADD_PARTIALLYMATCHED_USER';
+const LOGOUT = 'matches/LOGOUT';
 
 const setMatchableUsers = (users) => ({
   type: SET_MATCHABLE_USERS,
@@ -24,6 +25,10 @@ const setFullyMatchedGroups = (groups) => ({
   payload: groups,
 });
 
+const setPartiallyMatchedGroups = (groups) => ({
+  type: SET_PARTIALLYMATCHED_GROUPS,
+  payload: groups,
+})
 const setFullyMatchedUsers = (users) => ({
   type: SET_FULLYMATCHED_USERS,
   payload: users,
@@ -47,6 +52,10 @@ const addPartiallyMatchedGroup = (group) => ({
 const addPartiallyMatchedUser = (user) => ({
   type: ADD_PARTIALLYMATCHED_USER,
   payload: user,
+})
+
+export const matchesLogout = () => ({
+  type: LOGOUT,
 })
 
 export const getMatchableUsers = () => async (dispatch) => {
@@ -81,15 +90,35 @@ export const makeMatch = (data) => async (dispatch) => {
   else if (responseData.user_matched){
     dispatch(addPartiallyMatchedGroup(responseData))
   }
-  else if (respsonseData.group_matched){
+  else if (responseData.group_matched){
     dispatch(addPartiallyMatchedUser(responseData))
   }
 };
 
 export const getMatchedGroups = (userId) => async(dispatch) => {
   const response = await fetch(`/api/matches/users/${userId}`)
-  const fullMatch = [];
-  const partialMatch = [];
+
+  // let partialMatch = new Object({});
+  // let fullMatch = new Object({})
+  const matches = {full: {}, partial: {}}
+  const data = await response.json();
+  console.log(matches);
+
+  for (const key in data){
+
+    console.log(key, 'key')
+    if (data[key].user_matched && data[key].group_matched){
+      console.log(data[key], 'data at key')
+      matches.full[key] = data[key]
+        // fullMatch[key] = data[key]
+    } else {
+        // partialMatch[key] = data[key]
+      matches.partial[key] = data[key];
+    }
+  }
+  console.log('full', matches)
+  dispatch(setFullyMatchedGroups(matches))
+  // dispatch(setPartiallyMatchedGroups(partialMatch))
 }
 
 export const unMatch = (data) => async (dispatch) => {
@@ -118,7 +147,24 @@ export default function reducer(state = initialState, action) {
       newState = {...state};
       newState.groups = Object.values(action.payload);
       return newState;
-    default:
+    case SET_FULLYMATCHED_GROUPS:
+      newState = {...state}
+      newState.groupsMatchedtoUser.full = action.payload.full;
+      newState.groupsMatchedtoUser.partial = action.payload.partial;
+      return newState;
+    case SET_PARTIALLYMATCHED_GROUPS:
+      newState = {...state}
+      newState.groupsMatchedtoUser.partial = action.payload;
+      return newState;
+    case ADD_FULLYMATCHED_GROUP:
+      newState = {...state};
+      newState.groupsMatchedtoUser.full[action.payload.id] = action.payload;
+      return newState;
+    case ADD_PARTIALLYMATCHED_GROUP:
+      newState = {...state};
+      newState.groupsMatchedtoUser.partial[action.payload.id] = action.payload;
+    case LOGOUT:
+      default:
       return state;
   }
 }

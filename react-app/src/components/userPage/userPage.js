@@ -105,7 +105,7 @@ const UserPage = () => {
         <>
           <div className="userpage_username__div">
             User name: {user.username}
-            <button>Edit</button>
+            <button onClick={()=>setEditName(!editName)}>Edit</button>
             {editName && (
               <>
                 <form onSubmit={updateUser}>

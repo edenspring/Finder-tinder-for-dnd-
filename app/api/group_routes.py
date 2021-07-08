@@ -20,15 +20,18 @@ def new_group():
 @login_required
 def edit_group(id):
     user_id = int(current_user.id)
+    print(id)
+    print(user_id)
     res = request.get_json()
+    print(res,'res')
     if (user_id != res['user_id']):
         return 'Not allowed'
     group = db.session.query(Group).get(id)
 
     if(group.name != res['name']):
         group.name = res['name']
-    if(group.group_photo != res['photo']):
-        group.group_photo = res['photo']
+    if(group.group_photo != res['group_photo']):
+        group.group_photo = res['group_photo']
     if(group.recruiting != res['recruiting']):
        group.recruiting = res['recruiting']
     if (group.about != res['about']):
