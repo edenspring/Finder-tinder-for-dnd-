@@ -9,4 +9,3 @@ from .group_members import GroupMember
 from .groups import Group
 from .matches import Match
 from .messages import Message
-
