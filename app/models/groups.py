@@ -10,6 +10,10 @@ class Group(db.Model):
     game_rules = db.Column(db.String(50))
     recruiting = db.Column(db.Boolean, default=True)
     group_photo = db.Column(db.String(250))
+    about = db.Column(db.Text)
+
+    matches = db.relationship('Match', cascade='all,delete', )
+    chat_rel = db.relationship('Chat', cascade='all,delete')
 
 
 
@@ -29,5 +33,7 @@ class Group(db.Model):
             'game_rules': self.game_rules,
             'recruiting': self.recruiting,
             'group_photo': self.group_photo,
+            'about':self.about,
             'tags': tags_dict,
+            'owner': self.user.group_owner(),
         }

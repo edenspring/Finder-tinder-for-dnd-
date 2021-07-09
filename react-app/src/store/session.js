@@ -1,4 +1,5 @@
 import * as groupActions from './group';
+import * as matchActions from './matches'
 
 // constants
 const SET_USER = 'session/SET_USER';
@@ -50,6 +51,7 @@ export const login = (email, password) => async (dispatch) => {
     return data;
   }
   dispatch(setUser(data));
+  if (data.group) dispatch(groupActions.setGroup(data.group));
   return {};
 };
 
@@ -61,6 +63,8 @@ export const logout = () => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(removeUser());
+  dispatch(groupActions.removeGroup());
+  dispatch(matchActions.matchesLogout());
 };
 
 export const signUp =
@@ -103,6 +107,7 @@ export default function reducer(state = initialState, action) {
         id: action.payload.id,
         tag: action.payload.tag,
       };
+      return newState;
     case UPDATE_USER_GROUP:
       newState = {...state};
       newState.user.group = action.payload;
@@ -113,6 +118,7 @@ export default function reducer(state = initialState, action) {
         id: action.payload.id,
         tag: action.payload.tag,
       };
+      return newState;
     case REMOVE_USER_TAG:
         console.log('hitting remove user tag reducer route')
         newState={...state};

@@ -20,26 +20,27 @@ def new_group():
 @login_required
 def edit_group(id):
     user_id = int(current_user.id)
+    print(id)
+    print(user_id)
     res = request.get_json()
+    print(res,'res')
     if (user_id != res['user_id']):
         return 'Not allowed'
-    print('>>>>', res['looking_for_group'])
     group = db.session.query(Group).get(id)
 
     if(group.name != res['name']):
         group.name = res['name']
-    if(group.group_photo != res['photo']):
-        group.group_photo = res['photo']
-    if(user.hashed_password != generate_password_hash(res['password'])):
-        user.hashed_password = generate_password_hash(res['password'])
-    if(user.looking_for_group != res['looking_for_group']):
-        print('!!!!!penis!!!!!', user.looking_for_group)
-
-        user.looking_for_group = res['looking_for_group']
-        print(user.looking_for_group)
-    db.session.add(user)
+    if(group.group_photo != res['group_photo']):
+        group.group_photo = res['group_photo']
+    if(group.recruiting != res['recruiting']):
+       group.recruiting = res['recruiting']
+    if (group.about != res['about']):
+        group.about = res['about']
+    if (group.game_rules != res['game_rules']):
+        group.game_rules = res['game_rules']
+    db.session.add(group)
     db.session.commit()
-    return user.to_dict()
+    return group.to_dict()
 
 @group_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
@@ -54,3 +55,14 @@ def delete_group(id):
         return "deleted"
     else:
         return "unknown issue"
+
+@group_routes.route('/matchable')
+@login_required
+def matchable_groups():
+    groups = db.session.query(Group).filter(Group.recruiting == True).all()
+    ret_groups = {}
+    for group in groups:
+        id = group.id
+        ret_groups[id] = group.to_dict()
+    print(ret_groups,'222222')
+    return ret_groups

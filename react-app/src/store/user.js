@@ -24,3 +24,16 @@ export const updateUser = (data) => async(dispatch) => {
     dispatch(setUser(user));
   }
 };
+
+export const updatePassword = (data) => async(dispatch) => {
+  const response = await fetch(`/api/users/${data.id}/password`, {
+    method:'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+
+    },
+    body: JSON.stringify(data)
+  })
+  const resjson = await response.json()
+  return resjson;
+}

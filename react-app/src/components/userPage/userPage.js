@@ -15,8 +15,8 @@ const UserPage = () => {
   const [userName, setUserName] = useState(user.username);
   const [user_photo, setPhoto] = useState(user.photo);
   const [looking_for_group, setLFG] = useState(user.looking_for_group);
-  const [newPassword, setNewPassword] = useState('');
-  const [verifyPassword, setVerifyPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('password');
+  const [verifyPassword, setVerifyPassword] = useState('repeatpassword');
   const [newTag, setNewTag] = useState('');
 
   function updateUser(e) {
@@ -27,13 +27,13 @@ const UserPage = () => {
       username: userName,
       photo: user_photo,
       looking_for_group: looking_for_group,
-      password: newPassword,
-      repeatPassword: verifyPassword,
     };
 
     console.log('datarrr');
     dispatch(userActions.updateUser(data));
   }
+
+
 
   function lfgUpdate(e) {
     console.log(e.checked);
@@ -47,7 +47,15 @@ const UserPage = () => {
       return;
     } else {
       setEditPassword(false);
-      updateUser(e);
+      const data = {
+        id: user.id,
+        username: userName,
+        photo: user_photo,
+        looking_for_group: looking_for_group,
+        password: newPassword,
+        repeatPassword: verifyPassword,
+      };
+      dispatch(userActions.updatePassword(data))
     }
   }
 
@@ -105,7 +113,7 @@ const UserPage = () => {
         <>
           <div className="userpage_username__div">
             User name: {user.username}
-            <button>Edit</button>
+            <button onClick={()=>setEditName(!editName)}>Edit</button>
             {editName && (
               <>
                 <form onSubmit={updateUser}>
