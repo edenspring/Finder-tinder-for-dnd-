@@ -12,10 +12,11 @@ import TinderCard from 'react-tinder-card';
 const UserCard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => ({...state.session.user}));
+  const group = useSelector((state)=> ({...state.group}))
   const users = useSelector((state) => state.matches.users);
   const [currentCard, setCurrentCard] = useState('');
 
-  const groupId = 1;
+  // const groupId = 1;
 
   let index = 1;
 
@@ -27,11 +28,11 @@ const UserCard = () => {
   const onSwipe = (direction, id) => {
     console.log('You swiped: ' + direction);
     if (direction == 'right') {
-      const data = {user_id: id, group_id: groupId, context: 'group'};
+      const data = {user_id: id, group_id: group.id, context: 'group'};
       dispatch(matchActions.makeMatch(data));
     }
     if (direction == 'left'){
-      const data = {user_id: id, group_id: groupId, context: 'group'};
+      const data = {user_id: id, group_id: group.id, context: 'group'};
       dispatch(matchActions.unMatch(data));
     }
   };

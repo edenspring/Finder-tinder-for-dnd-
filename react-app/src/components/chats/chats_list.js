@@ -7,12 +7,15 @@ import Chat from './chat';
 function ChatsList() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const group = useSelector((state) => state.group)
   const chatsWithGroups = useSelector((state) => state.chat.user_chats);
+  const chatsWithPlayers = useSelector((state)=> state.chat.group_chats);
   const [activeChat, setActiveChat] = useState(null)
 
 
   useEffect(() => {
     dispatch(chatActions.getUserChats(user.id));
+    dispatch(chatActions.getGroupChats(group.id))
   }, []);
 
   function makeActive(e, chat) {
@@ -32,6 +35,17 @@ function ChatsList() {
             <div className="chat_link__div" key={`chat_${chat.id}`}>
               <div className='chat_link_info__div' onClick={(e)=>makeActive(e.target, chat)}>
                 Chat with {chat.matched_group_info.group_name}
+              </div>
+            </div>
+          ))}
+      </div>
+      <div className="chats_with_users__div">
+        Chats with players your group has matched with:
+        {chatsWithPlayers &&
+          Object.values(chatsWithPlayers).map((chat, index) => (
+            <div className="chat_link__div" key={`chat_${chat.id}`}>
+              <div className='chat_link_info__div' onClick={(e)=>makeActive(e.target, chat)}>
+                Chat with {chat.matched_user_info.user_name}
               </div>
             </div>
           ))}

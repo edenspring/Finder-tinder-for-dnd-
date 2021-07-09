@@ -29,3 +29,17 @@ def get_chat_messages(id):
     return "Not allowed"
   print('am hurrrrrr--+++---+++')
   return chat.chat_messages()
+
+@chat_routes.route('/groups/<int:id>')
+@login_required
+def get_group_chats(id):
+  current_user_id = int(current_user.id)
+  chats = db.session.query(Chat).filter(Chat.group_id == id).all()
+  print('000011110000chats--------',chats)
+  print(current_user_id)
+  chatdict = chats[0].to_dict()
+  print('/*/*/*/*/*/*/*/*/',)
+  if (chatdict['matched_group_info']['group_user']['id'] != current_user_id):
+    return 'Not Allowed'
+  print('++++ I ALLOW THIS ++++')
+  return {chat.id: chat.to_dict() for chat in chats}
