@@ -17,7 +17,9 @@ function Chat({props}){
     (async () => {
       const res = await fetch(`/api/chats/${chat.id}/messages`);
       const data = await res.json();
-      console.log('peepee', data)
+      for (const key in data){
+        setMessages((messages)=> [...messages, data[key]])
+      }
     })()
 
     socket = io();
@@ -26,9 +28,23 @@ function Chat({props}){
     socket.on('chat', (chat)=>{
       setMessages((messages) => [...messages, chat])
     })
-  },[])
+    return () => {
+        socket.disconnect();
+        setMessages([])
+      }
+  },[chat])
   return (
-    null
+    <>
+    <div className = "chat_body__div" id='chat_window'>
+      {messages.length? (<div className='messages_container__div'>
+        {messages.map((message, index) => (
+          <div className='message_content__div' key={`message.no${message.id}`}>
+            {JSON.stringify(message)}
+          </div>
+        ))}
+      </div>):'Connect to your new match! Say something....'}
+    </div>
+    </>
   )
 
 }

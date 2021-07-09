@@ -29,8 +29,8 @@ function ChatsList() {
         Chats with groups you've matched as a player:
         {chatsWithGroups &&
           Object.values(chatsWithGroups).map((chat, index) => (
-            <div classname="chat_link__div">
-              <div className='chat_link_info__div' key={`chat_${chat.id}`} onClick={(e)=>makeActive(e.target, chat)}>
+            <div className="chat_link__div" key={`chat_${chat.id}`}>
+              <div className='chat_link_info__div' onClick={(e)=>makeActive(e.target, chat)}>
                 Chat with {chat.matched_group_info.group_name}
               </div>
             </div>

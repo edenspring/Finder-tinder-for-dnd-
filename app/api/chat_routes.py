@@ -19,6 +19,13 @@ def get_chat_messages(id):
   current_user_id = int(current_user.id)
   chat = db.session.query(Chat).get(id)
   print('++++++',chat.chat_messages())
-  if current_user_id != chat.user_id or current_user_id != chat.group.user_id:
+  print('------', chat.to_dict())
+  print('current_user_id : ', current_user_id)
+  print('chat.user_id : ', chat.user_id)
+  print('chat.group.user_id : ', chat.group.user_id)
+  if (current_user_id != chat.user_id) and (current_user_id != chat.group.user_id):
+  # if current_user_id != chat.user_id:
+    print('----NOT ALLOWED---')
     return "Not allowed"
+  print('am hurrrrrr--+++---+++')
   return chat.chat_messages()
