@@ -16,6 +16,7 @@ import MatchedGroups from './components/matches/matched_groups';
 import ChatsList from './components/chats/chats_list';
 import Chat from './components/chats/chat'
 import {authenticate} from './store/session';
+import SplashPage from './components/splash/splash';
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -49,10 +50,9 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
-          <UserPage />
-        </ProtectedRoute>
+        <Route path="/" exact={true}>
+          <SplashPage />
+        </Route>
         <ProtectedRoute path="/group" exact={true}>
           <Group />
         </ProtectedRoute>
