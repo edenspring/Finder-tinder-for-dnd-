@@ -15,6 +15,7 @@ class Chat(db.Model):
 
     group = db.relationship('Group', backref='chats')
     user = db.relationship('User', backref='chats')
+    messages = db.relationship('Message', backref='chats')
 
     def to_dict(self):
         return {
@@ -29,3 +30,6 @@ class Chat(db.Model):
                 'user_name':self.user.username,
             }
         }
+
+    def chat_messages(self):
+        return {message.id:message.to_dict() for message in self.messages}

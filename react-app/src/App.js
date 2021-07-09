@@ -13,6 +13,8 @@ import NewGroup from './components/groups/newgroup';
 import UserCard from './components/finder-cards/usercard';
 import GroupCard from './components/finder-cards/groupcard';
 import MatchedGroups from './components/matches/matched_groups';
+import ChatsList from './components/chats/chats_list';
+import Chat from './components/chats/chat'
 import {authenticate} from './store/session';
 
 function App() {
@@ -68,7 +70,10 @@ function App() {
         </ProtectedRoute>
       </Switch>
       <ProtectedRoute path="/chats">
-        
+        <ChatsList />
+      </ProtectedRoute>
+      <ProtectedRoute path="/chats/:chatId">
+        <Chat />
       </ProtectedRoute>
     </BrowserRouter>
   );
