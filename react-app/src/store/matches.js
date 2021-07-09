@@ -163,6 +163,7 @@ export default function reducer(state = initialState, action) {
     case ADD_PARTIALLYMATCHED_GROUP:
       newState = {...state};
       newState.groupsMatchedtoUser.partial[action.payload.id] = action.payload;
+      return newState;
     case LOGOUT:
       return initialState;
     default:

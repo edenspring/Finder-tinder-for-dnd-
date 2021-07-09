@@ -7,20 +7,21 @@ import {io} from 'socket.io-client';
 let socket;
 
 function Chat({props}){
-
+  console.log(props)
   const user = useSelector((state)=>state.session.user)
-  const {chatId} = useParams();
+  const {chat} = props;
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([])
+
   useEffect(()=>{
     (async () => {
-      const res = await fetch(`/api/chats/${chatId}/messages`);
+      const res = await fetch(`/api/chats/${chat.id}/messages`);
       const data = await res.json();
       console.log('peepee', data)
     })()
-    
+
     socket = io();
-    socket.emit('join', {chatId: chatId, username:user.username})
+    socket.emit('join', {chatId: chat.id, username:user.username})
 
     socket.on('chat', (chat)=>{
       setMessages((messages) => [...messages, chat])
