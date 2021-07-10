@@ -6,7 +6,7 @@ const SplashPage = () => {
   const [signup, setSignUp] = useState(false);
 
   return (
-      <div className='splash_signuplogin__div' style={{backgroundImage: `url(https://i.imgur.com/lqFniyN.jpeg)`}}>
+      <div className='splash_signuplogin__div' >
         {signup ? (
           <div className="signup_form__div">
             <SignUpForm />

@@ -18,15 +18,22 @@ html {
   padding: 0;
   margin: 0;
 }
+
 body {
   background-color: black;
   font-family: "Draconis";
-
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   padding: 0;
   margin: 0;
+  background-image: url(https://i.imgur.com/lqFniyN.jpeg);
+  background-size: cover;
 }
 
+#root{
+
+}
 nav {
   background-color: black;
   display: flex;
@@ -46,5 +53,30 @@ nav a {
 }
 
 .splash_signuplogin__div {
+  box-sizing: border-box;
   height: 100%;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.footer__div {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0px;
+  background-color: black;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.footer__div img {
+  height: 30px;
+}
+
+.signup_form__div,
+.login_form__div {
+
 }
