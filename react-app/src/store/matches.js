@@ -95,6 +95,27 @@ export const makeMatch = (data) => async (dispatch) => {
   }
 };
 
+export const getMatchedUsers = (groupId) => async(dispatch)=> {
+  const response= await fetch(`/api/matches/groups/${groupId}`)
+  const matches = {full: {}, partial: {}}
+  const data = await response.json()
+
+  for (const key in data){
+
+    console.log(key, 'key')
+    if (data[key].user_matched && data[key].group_matched){
+      console.log(data[key], 'data at key')
+      matches.full[key] = data[key]
+        // fullMatch[key] = data[key]
+    } else {
+        // partialMatch[key] = data[key]
+      matches.partial[key] = data[key];
+    }
+  }
+
+  dispatch(setFullyMatchedUsers(matches))
+}
+
 export const getMatchedGroups = (userId) => async(dispatch) => {
   const response = await fetch(`/api/matches/users/${userId}`)
 
@@ -123,7 +144,7 @@ export const getMatchedGroups = (userId) => async(dispatch) => {
 
 export const unMatch = (data) => async (dispatch) => {
   const response = await fetch('/api/matches/unmatch', {
-    method: 'POST',
+    method: "POST",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data),
   });
@@ -152,6 +173,10 @@ export default function reducer(state = initialState, action) {
       newState.groupsMatchedtoUser.full = action.payload.full;
       newState.groupsMatchedtoUser.partial = action.payload.partial;
       return newState;
+    case SET_FULLYMATCHED_USERS:
+      newState = {...state}
+      newState.usersMatchedtoGroup.full = action.payload.full;
+      newState.usersMatchedtoGroup.partial = action.payload.partial;
     case SET_PARTIALLYMATCHED_GROUPS:
       newState = {...state}
       newState.groupsMatchedtoUser.partial = action.payload;

@@ -46,13 +46,45 @@ def get_or_create_usermatch():
                 Chat.group_id == group_id, Chat.user_id == user_id).first()
             if chat is None:
                 chat = Chat(**{
-                    'user_id' : user_id,
-                    'group_id' : group_id,
+                    'user_id': user_id,
+                    'group_id': group_id,
                 })
                 db.session.add(chat)
         db.session.add(match)
         db.session.commit()
         return match.to_dict()
+
+
+@match_routes.route('/unmatch', methods=["POST"])
+@login_required
+def unmatch():
+    print('-=-=-=-=-=-=-MADE IT IN=-=-=-=-=-=-=-=-')
+    res = request.get_json()
+    group_id = res['group_id']
+    user_id = res['user_id']
+    context = res['context']
+    match = db.session.query(Match).filter(
+        Match.user_id == user_id, Match.group_id == group_id).first()
+    if match is None:
+        print('``````nomatchfound````````')
+        return("No match created")
+    else:
+        print('!!!!!!!!match found!!!!!!!!')
+        print(match.to_dict())
+        # if context == 'group':
+        #     match.group_matched = False
+        # elif context == 'user':
+        #     match.user_matched = False
+
+        # db.session.add(match)
+        if(match.group_matched == True and match.user_matched == True):
+            chat = db.session.query(Chat).filter(
+                Chat.group_id == group_id, Chat.user_id == user_id).first()
+            db.session.delete(chat)
+            db.session.commit()
+        db.session.delete(match)
+        db.session.commit()
+        return 'match deleted'
 
 
 @match_routes.route('/users/<int:id>', methods=["GET"])

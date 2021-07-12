@@ -1,8 +1,8 @@
-"""initial migrate
+"""empty message
 
-Revision ID: 1719380416cf
+Revision ID: 8d96272aca2d
 Revises: 
-Create Date: 2021-06-30 02:06:08.483324
+Create Date: 2021-07-12 05:11:46.508487
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '1719380416cf'
+revision = '8d96272aca2d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -52,6 +52,8 @@ def upgrade():
     sa.Column('name', sa.String(length=75), nullable=False),
     sa.Column('game_rules', sa.String(length=50), nullable=True),
     sa.Column('recruiting', sa.Boolean(), nullable=True),
+    sa.Column('group_photo', sa.String(length=250), nullable=True),
+    sa.Column('about', sa.Text(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -66,7 +68,9 @@ def upgrade():
     op.create_table('chats',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('group_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['group_id'], ['groups.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('group_members',
@@ -100,6 +104,8 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('chat_id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=255), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['chat_id'], ['chats.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

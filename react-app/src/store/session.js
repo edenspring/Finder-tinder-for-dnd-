@@ -92,6 +92,14 @@ export const signUp =
     return {};
   };
 
+export const demoLogin = () => async (dispatch) => {
+  const response = await fetch('/api/auth/demologin')
+  const data = await response.json()
+  dispatch(setUser(data))
+  if (data.group) dispatch(groupActions.setGroup(data.group));
+  return data;
+}
+
 const initialState = {user: null};
 
 export default function reducer(state = initialState, action) {

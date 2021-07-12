@@ -26,18 +26,18 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  if (user) {
+    if (user) {
     return <Redirect to="/" />;
   }
 
   return (
     <form onSubmit={onLogin}>
-      <div>
+      <div className='form__field'>
         {errors.map((error) => (
           <div>{error}</div>
         ))}
       </div>
-      <div>
+      <div className='form__field'>
         <label htmlFor="email">Email</label>
         <input
           name="email"
@@ -47,7 +47,7 @@ const LoginForm = () => {
           onChange={updateEmail}
         />
       </div>
-      <div>
+      <div className='form__field'>
         <label htmlFor="password">Password</label>
         <input
           name="password"
@@ -56,8 +56,8 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button type="submit">Login</button>
       </div>
+        <button type="submit">Login</button>
     </form>
   );
 };

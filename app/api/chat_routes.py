@@ -37,6 +37,8 @@ def get_group_chats(id):
   chats = db.session.query(Chat).filter(Chat.group_id == id).all()
   print('000011110000chats--------',chats)
   print(current_user_id)
+  if len(chats) == 0:
+    return "No chats found"
   chatdict = chats[0].to_dict()
   print('/*/*/*/*/*/*/*/*/',)
   if (chatdict['matched_group_info']['group_user']['id'] != current_user_id):

@@ -8,8 +8,8 @@ origins = []
 
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "http://actual-app-url.herokuapp.com",
-        "https://actual-app-url.herokuapp.com"
+        "https://finder-tinder-for-dnd.herokuapp.com/",
+        "http://finder-tinder-for-dnd.herokuapp.com/"
     ]
 else:
     origins = "*"
