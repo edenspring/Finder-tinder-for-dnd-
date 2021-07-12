@@ -123,7 +123,7 @@ export const getMatchedGroups = (userId) => async(dispatch) => {
 
 export const unMatch = (data) => async (dispatch) => {
   const response = await fetch('/api/matches/unmatch', {
-    method: 'POST',
+    method: "POST",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data),
   });

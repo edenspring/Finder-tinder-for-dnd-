@@ -1,29 +1,41 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {NavLink} from 'react-router-dom';
-import * as chatActions from '../../store/chat';
-import Chat from './chat';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import * as chatActions from "../../store/chat";
+import Chat from "./chat";
 
 function ChatsList() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const group = useSelector((state) => state.group)
+  const group = useSelector((state) => state.group);
   const chatsWithGroups = useSelector((state) => state.chat.user_chats);
-  const chatsWithPlayers = useSelector((state)=> state.chat.group_chats);
-  const [activeChat, setActiveChat] = useState(null)
-
+  const chatsWithPlayers = useSelector((state) => state.chat.group_chats);
+  const [activeChatClass, setActiveChatClass] = useState('none')
+  const [activeChat, setActiveChat] = useState(null);
 
   useEffect(() => {
     dispatch(chatActions.getUserChats(user.id));
-    dispatch(chatActions.getGroupChats(group.id))
+    dispatch(chatActions.getGroupChats(group.id));
   }, []);
 
   function makeActive(e, chat) {
-    const currentActive = document.querySelectorAll('.active')
-    currentActive.forEach(e=>e.classList.remove('active'))
-    console.log(e)
-    e.classList.add('active')
-    setActiveChat(<>{chat.id} <Chat props={{chat}} /></>)
+    setActiveChatClass('active_chat__div')
+    const currentActive = document.querySelectorAll(".active");
+    currentActive.forEach((e) => e.classList.remove("active"));
+    console.log(e);
+    e.classList.add("active");
+    setActiveChat(
+      <>
+        <span>
+          {" "}
+          {determineChatTitle(chat)} <Chat props={{ chat }} />{" "}
+        </span>
+      </>
+    );
+  }
+
+  function determineChatTitle(chat) {
+    return chat.matched_group_info.group_name === group.name ? chat.matched_user_info.user_name : group.name;
   }
 
   return (
@@ -33,7 +45,10 @@ function ChatsList() {
         {chatsWithGroups &&
           Object.values(chatsWithGroups).map((chat, index) => (
             <div className="chat_link__div" key={`chat_${chat.id}`}>
-              <div className='chat_link_info__div' onClick={(e)=>makeActive(e.target, chat)}>
+              <div
+                className="chat_link_info__div"
+                onClick={(e) => makeActive(e.target, chat)}
+              >
                 Chat with {chat.matched_group_info.group_name}
               </div>
             </div>
@@ -44,15 +59,16 @@ function ChatsList() {
         {chatsWithPlayers &&
           Object.values(chatsWithPlayers).map((chat, index) => (
             <div className="chat_link__div" key={`chat_${chat.id}`}>
-              <div className='chat_link_info__div' onClick={(e)=>makeActive(e.target, chat)}>
+              <div
+                className="chat_link_info__div"
+                onClick={(e) => makeActive(e.target, chat)}
+              >
                 Chat with {chat.matched_user_info.user_name}
               </div>
             </div>
           ))}
       </div>
-      <div className='active_chat__div'>
-        {activeChat}
-      </div>
+      <div className={activeChatClass}>{activeChat}</div>
     </div>
   );
 }

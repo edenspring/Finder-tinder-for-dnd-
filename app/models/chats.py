@@ -15,7 +15,7 @@ class Chat(db.Model):
 
     group = db.relationship('Group', backref='chats')
     user = db.relationship('User', backref='chats')
-    messages = db.relationship('Message', backref='chats')
+    messages = db.relationship('Message', backref='chats', cascade='all,delete')
 
     def to_dict(self):
         return {

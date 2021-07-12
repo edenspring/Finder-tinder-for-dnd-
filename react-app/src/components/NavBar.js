@@ -39,6 +39,9 @@ const NavBar = () => {
           <NavLink to="/join" exact={true} activeClassName="active">
             Join a Group
           </NavLink>
+          <NavLink to="/chats" exact={true} activeClassName="active">
+            Chat with Matches
+          </NavLink>
           <LogoutButton />
         </>
       ) : (

@@ -212,3 +212,59 @@ label {
 .newgroup_form__div textarea {
   height: 52px;
 }
+
+.chats_container__div {
+  height: 100%;
+  background-color: rgba(61, 61, 61, 0.755);
+}
+
+.chats_with_groups__div {
+  margin: 5px;
+  height: 45%;
+  width: 49%;
+  background-color: rgba(85, 66, 29, 0.755);
+  box-shadow: 1px 1px 1px 1px;
+}
+
+.chats_with_users__div {
+  margin: 5px;
+  height: 50%;
+  width: 49%;
+  background-color: rgba(128, 55, 55, 0.755) ;
+  box-shadow: 1px 1px 1px 1px;
+}
+
+.active_chat__div {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  width: 49%;
+  margin: 5px;
+  padding: 3px;
+  background-color: rgba(124, 124, 124, 0.755);
+  box-shadow: 1px 1px 1px 1px;
+}
+
+.chat_link_info__div:hover {
+  cursor: pointer;
+
+}
+
+.message_content__div {
+}
+
+.chat_input {
+  width: 100%;
+}
+
+.message_username__div {
+  font-size: .75em;
+}
+
+.message_text__div {
+  font-size: 1.25em;
+}
+
+.none {
+  display: none;
+}

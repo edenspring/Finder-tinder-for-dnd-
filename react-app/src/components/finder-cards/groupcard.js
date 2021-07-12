@@ -51,6 +51,18 @@ const GroupCard = () => {
     console.log(myIdentifier + ' left the screen');
   };
 
+  function determineMatchStatus(group){
+    if(partialIds.includes(group.id)){
+      return("You chose to match with this group, swipe left to unmatch")
+    }
+    else if (fullIds.includes(group.id)){
+      return("Both you and this group have matched! Go to your chats page to get to know each other")
+    }
+    else {
+      return("")
+    }
+  }
+
   // console.log(partialIds, fullIds)
 
   return (
@@ -68,7 +80,7 @@ const GroupCard = () => {
             onSwipe={(direction) => onSwipe(direction, group.id)}
             onCardLeftScreen={() => onCardLeftScreen(group.name)}
           >
-            <div className="tindercard_matchstatus__div"></div>
+            <div className="tindercard_matchstatus__div">{determineMatchStatus(group)}</div>
             <div className="tindercard_content__div">
               <div
                 className="tindercard_image__div"
