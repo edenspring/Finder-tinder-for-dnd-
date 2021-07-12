@@ -9,7 +9,9 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taggable_id = db.Column(db.Integer, nullable=False)
     taggable_type = db.Column(
-        ENUM('user', 'group', name='taggable_types'), nullable=False)
+        # db.String(10),
+        ENUM('user', 'group', name='taggable_types'),
+        nullable=False)
     tag = db.Column(db.String(25), nullable=False)
 
     user = db.relationship(

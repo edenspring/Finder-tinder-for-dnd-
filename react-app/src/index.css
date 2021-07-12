@@ -60,7 +60,6 @@ nav a {
   box-sizing: border-box;
   margin: 10px;
   display: flex;
-  min-height: ;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -140,14 +139,16 @@ label {
   top: 18%;
   left: 10%;
   background-color: white;
+
 }
 
 .tindercard_image__div {
   height: 300px;
-  width: 380px;
+  width: 100%;
   background-size:contain;
   background-position: center;
   background-repeat: no-repeat;
+
 }
 
 .userpage_main__div {
@@ -188,7 +189,6 @@ label {
   box-sizing: border-box;
   margin: 10px;
   display: flex;
-  min-height: ;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -220,7 +220,7 @@ label {
 
 .chats_with_groups__div {
   margin: 5px;
-  height: 45%;
+  height: 49%;
   width: 49%;
   background-color: rgba(85, 66, 29, 0.755);
   box-shadow: 1px 1px 1px 1px;
@@ -228,7 +228,7 @@ label {
 
 .chats_with_users__div {
   margin: 5px;
-  height: 50%;
+  height: 49%;
   width: 49%;
   background-color: rgba(128, 55, 55, 0.755) ;
   box-shadow: 1px 1px 1px 1px;
@@ -267,4 +267,26 @@ label {
 
 .none {
   display: none;
+}
+
+.tinderCard_title {
+  font-size: .75rem;
+}
+
+.tinderCard_info__div{
+  padding-bottom: 6px;
+  padding-left: 6px;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tinderCard_content {
+  padding-bottom: 6px;
+}
+
+.tinderCard_info__div li {
+  font-size: 1.25rem;
+  list-style-type:none;
 }

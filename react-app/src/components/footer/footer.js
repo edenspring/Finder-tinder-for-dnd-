@@ -5,7 +5,7 @@ import linkedin from "../../LI-In-Bug.png";
 
 function Footer() {
   return (
-    <div class="footer__div">
+    <div className="footer__div">
       <a className="github__link" href="https://github.com/edenspring">
         <img src={github} />
       </a>

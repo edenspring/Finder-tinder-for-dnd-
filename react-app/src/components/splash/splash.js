@@ -29,7 +29,7 @@ const SplashPage = () => {
           </button>
         </>
       )}
-      <button class='demo_login__button' onClick={()=> demoSignIn()}>Demo Login</button>
+      <button className='demo_login__button' onClick={()=> demoSignIn()}>Demo Login</button>
     </div>
   );
 };
