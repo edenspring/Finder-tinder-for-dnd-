@@ -56,36 +56,40 @@ const SignUpForm = () => {
 
   return (
     <form onSubmit={onSignUp}>
-      <div>
+      <div className='form__field'>
         <label>User Name</label>
         <input
+        className='form__input'
           type="text"
           name="username"
           onChange={updateUsername}
           value={username}
         ></input>
       </div>
-      <div>
+      <div className='form__field'>
         <label>Email</label>
         <input
+        className='form__input'
           type="text"
           name="email"
           onChange={updateEmail}
           value={email}
         ></input>
       </div>
-      <div>
+      <div className='form__field'>
         <label>Password</label>
         <input
+        className='form__input'
           type="password"
           name="password"
           onChange={updatePassword}
           value={password}
         ></input>
       </div>
-      <div>
+      <div className='form__field'>
         <label>Repeat Password</label>
         <input
+        className='form__input'
           type="password"
           name="repeat_password"
           onChange={updateRepeatPassword}
@@ -93,24 +97,27 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <div>
+      <div className='form__field'>
         <label>About Me:</label>
         <textarea
+        className='form__input'
         name="about"
         onChange={updateAbout}
         placeholder={'A little about me....'}>
         </textarea>
       </div>
-      <div>
+      <div className='form__field'>
         <label>A picture of me or my favorite character to play:</label>
         <input
+        className='form__input'
         type='text'
         onChange={updatePhoto}
         placeholder='A link to the picture...'/>
       </div>
-      <div>
+      <div className='form__field'>
         <label>Currently Looking for Group?</label>
         <input
+        className='checkbox__input'
         type='checkbox'
         checked={looking_for_group}
         onChange={updateLFG} />

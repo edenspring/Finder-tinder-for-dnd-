@@ -11,28 +11,32 @@
 
 * {
   font-family: "Draconis";
-}
+  box-sizing: border-box;
 
-html {
-  height: 100%;
-  padding: 0;
-  margin: 0;
 }
 
 body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+button {
+  border-radius: 4px;
+  border: none;
+  box-shadow: 3px 3px 1px 1px;
+  margin: 3px;
+}
+
+.app_container__div {
   background-color: black;
   font-family: "Draconis";
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  padding: 0;
-  margin: 0;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
   background-image: url(https://i.imgur.com/lqFniyN.jpeg);
   background-size: cover;
-}
-
-#root{
-
 }
 nav {
   background-color: black;
@@ -54,10 +58,51 @@ nav a {
 
 .splash_signuplogin__div {
   box-sizing: border-box;
-  height: 100%;
   margin: 10px;
   display: flex;
+  min-height: ;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  height: 375px;
+  width: 500px;
+  background-color: rgba(61, 61, 61, 0.755);
+  align-self: center;
+  box-shadow: 1px 1px 2px 2px
+}
+
+.splash_signuplogin__div form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: fit-content;
+  min-height: 50%;
+  min-width:80%;
+  justify-content: space-around;
+}
+
+.form__div {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__field {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+label {
+  max-width: 150px;
+  margin-right: 5px;
+}
+
+.form__input{
+  width: 225px;
+  box-shadow: 0px 0px 4px 2px;
+  border: none;
+
 }
 
 .footer__div {
@@ -65,18 +110,105 @@ nav a {
   height: 35px;
   display: flex;
   justify-content: space-around;
-  position: absolute;
-  bottom: 0px;
-  background-color: black;
+  background-color: rgba(10, 10, 10, 0.755);
   box-sizing: border-box;
   align-items: center;
 }
 
 .footer__div img {
+  align-items: center;
   height: 30px;
+}
+
+.github__link img {
+  background-color: aliceblue;
+  border-radius: 4px;
 }
 
 .signup_form__div,
 .login_form__div {
 
+}
+
+.potential_match__card {
+  height: 600px;
+  width: 400px;
+  box-shadow: 10px 5px 5px black;
+  margin: 10px;
+  border: 1px solid black;
+  position:absolute;
+  top: 18%;
+  left: 10%;
+  background-color: white;
+}
+
+.tindercard_image__div {
+  height: 300px;
+  width: 380px;
+  background-size:contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.userpage_main__div {
+  max-height: 85%;
+  width: 500px;
+  align-self: center;
+  box-shadow: 1px 1px 2px 2px;
+  background-color: rgba(61, 61, 61, 0.755);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.userpage_main__div img {
+  max-height: 450px;
+  max-width: 490px;
+}
+
+.usergroup_container__div {
+  max-height: 85%;
+  width: 500px;
+  align-self: center;
+  box-shadow: 1px 1px 2px 2px;
+  background-color: rgba(61, 61, 61, 0.755);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.usergroup_container__div img {
+  max-height: 450px;
+  max-width: 490px;
+}
+
+
+
+.newgroup_form__div {
+  box-sizing: border-box;
+  margin: 10px;
+  display: flex;
+  min-height: ;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 375px;
+  width: 500px;
+  background-color: rgba(61, 61, 61, 0.755);
+  align-self: center;
+  box-shadow: 1px 1px 2px 2px
+}
+
+.newgroup_form__div form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: fit-content;
+  min-height: 75%;
+  min-width:80%;
+  justify-content: space-around;
+}
+
+.newgroup_form__div textarea {
+  height: 52px;
 }

@@ -17,57 +17,30 @@ const NavBar = () => {
   return (
     <nav>
       {!!Object.values(user).length ? (
-        <ul>
-          <li>
-            <NavLink to="/" exact={true} activeClassName="active">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/login" exact={true} activeClassName="active">
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/sign-up" exact={true} activeClassName="active">
-              Sign Up
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/users" exact={true} activeClassName="active">
-              Users
-            </NavLink>
-          </li>
+        <>
+          <NavLink to="/" exact={true} activeClassName="active">
+            Home
+          </NavLink>
           {Object.keys(group).length ? (
             <>
-              <li>
-                <NavLink to="/group" exact={true} activeClassName="active">
-                  Group
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/recruit" exact={true} activeClassName="active">
-                  Find Players
-                </NavLink>
-              </li>
+              <NavLink to="/group" exact={true} activeClassName="active">
+                Group
+              </NavLink>
+              <NavLink to="/recruit" exact={true} activeClassName="active">
+                Find Players
+              </NavLink>
             </>
           ) : (
-            <li>
-              <NavLink to="/groups/new" exact={true} activeClassName="active">
-                New Group
-              </NavLink>
-            </li>
+            <NavLink to="/groups/new" exact={true} activeClassName="active">
+              New Group
+            </NavLink>
           )}
 
-          <li>
-            <NavLink to="/join" exact={true} activeClassName="active">
-              Join a Group
-            </NavLink>
-          </li>
-          <li>
-            <LogoutButton />
-          </li>
-        </ul>
+          <NavLink to="/join" exact={true} activeClassName="active">
+            Join a Group
+          </NavLink>
+          <LogoutButton />
+        </>
       ) : (
         <>
           <NavLink to="/about" exact={true} activeClassName="active">

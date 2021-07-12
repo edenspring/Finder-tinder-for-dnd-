@@ -45,6 +45,11 @@ def login():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+@auth_routes.route('/demologin')
+def demo_login():
+    demo = db.session.query(User).get(1)
+    login_user(demo)
+    return demo.to_dict()
 
 @auth_routes.route('/logout')
 def logout():

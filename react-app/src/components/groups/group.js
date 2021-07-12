@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import * as groupActions from '../../store/group';
-import * as tagActions from '../../store/tag';
+import * as groupActions from "../../store/group";
+import * as tagActions from "../../store/tag";
 
 const Group = () => {
-  const group = useSelector((state) => ({...state.group}));
+  const group = useSelector((state) => ({ ...state.group }));
   const user = useSelector((state) => state.session.user);
 
   const [editName, setEditName] = useState(false);
@@ -19,7 +19,7 @@ const Group = () => {
   const [newName, setNewName] = useState(group.name);
   const [newRules, setNewRules] = useState(group.game_rules);
   const [newRecruiting, setNewRecruiting] = useState(group.recruiting);
-  const [newTag, setNewTag] = useState('');
+  const [newTag, setNewTag] = useState("");
   const [newPhoto, setNewPhoto] = useState(group.group_photo);
   const [newAbout, setNewAbout] = useState(group.about);
 
@@ -45,7 +45,7 @@ const Group = () => {
 
   function removeGroupTag(id, e) {
     // setEditTags(!editTags)
-    dispatch(tagActions.removeTag(id, 'group'));
+    dispatch(tagActions.removeTag(id, "group"));
     // e.closest('li').remove();
     // e.remove();
   }
@@ -54,7 +54,7 @@ const Group = () => {
     e.preventDefault();
     const data = {
       taggable_id: group.id,
-      taggable_type: 'group',
+      taggable_type: "group",
       tag: newTag,
     };
     dispatch(tagActions.createTag(data));
@@ -62,7 +62,7 @@ const Group = () => {
 
   function deleteGroup() {
     dispatch(groupActions.deleteGroup(group.id));
-    history.push('/');
+    history.push("/");
   }
 
   return (
@@ -72,11 +72,14 @@ const Group = () => {
           <div className="usergroup_container__div">
             <div className="group_name__div">
               Group Name: {group.name}
-              <button type='button' onClick={() => setEditName(!editName)}>Edit name?</button>
+              <button type="button" onClick={() => setEditName(!editName)}>
+                Edit name?
+              </button>
               {editName && (
                 <>
                   <form onSubmit={updateGroup}>
                     <input
+                     className="form__input"
                       onChange={(e) => setNewName(e.target.value)}
                       defaultValue={group.name}
                     />
@@ -94,6 +97,7 @@ const Group = () => {
                 <>
                   <form onSubmit={updateGroup}>
                     <input
+                     className="form__input"
                       onChange={(e) => setNewPhoto(e.target.value)}
                       defaultValue={newPhoto}
                     />
@@ -110,6 +114,7 @@ const Group = () => {
               <>
                 <form onSubmit={updateGroup}>
                   <input
+                   className="form__input"
                     onChange={(e) => setNewRules(e.target.value)}
                     defaultValue={group.game_rules}
                   />
@@ -118,7 +123,7 @@ const Group = () => {
               </>
             )}
             <div className="group_recruiting__div">
-              Currently Recruiting? : {group.recruiting ? 'Yes' : 'No'}
+              Currently Recruiting? : {group.recruiting ? "Yes" : "No"}
             </div>
             <button onClick={() => setEditRecruiting(!editRecruiting)}>
               Edit Recruiting Status
@@ -142,33 +147,35 @@ const Group = () => {
             {editAbout && (
               <>
                 <form onSubmit={updateGroup}>
-                  <input
+                  <textarea
+                    className="form__input"
                     onChange={(e) => setNewAbout(e.target.value)}
                     placeholder={newAbout}
-                    />
+                  />
                   <button type="submit">Update About Group</button>
                 </form>
               </>
             )}
             <div className="group_tags__div">
               Tags:
-            {editTags && (
-              <div className="group_edittags__div">
-                <form onSubmit={createGroupTag}>
-                  <input
-                    onChange={(e) => setNewTag(e.target.value)}
-                    placeholder="Enter new tag..."
-                  />
-                  <button type="submit">Add new tag</button>
-                </form>
-              </div>
-            )}
+              {editTags && (
+                <div className="group_edittags__div">
+                  <form onSubmit={createGroupTag}>
+                    <input
+                     className="form__input"
+                      onChange={(e) => setNewTag(e.target.value)}
+                      placeholder="Enter new tag..."
+                    />
+                    <button type="submit">Add new tag</button>
+                  </form>
+                </div>
+              )}
               {group.tags && (
                 <>
                   <ul>
                     {Object.values(group.tags).map((tag, i) => (
                       <li key={`group_tag_key_${i}`}>
-                        {tag.tag}{' '}
+                        {tag.tag}{" "}
                         {editTags && (
                           <button
                             onClick={(e) => removeGroupTag(tag.id, e.target)}
