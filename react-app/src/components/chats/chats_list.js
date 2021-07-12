@@ -37,7 +37,7 @@ function ChatsList() {
   function determineChatTitle(chat) {
     return chat.matched_group_info.group_name === group.name
       ? chat.matched_user_info.user_name
-      : group.name;
+      : chat.matched_group_info.group_name;
   }
 
   return (
