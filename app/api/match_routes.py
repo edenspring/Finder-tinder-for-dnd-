@@ -36,7 +36,7 @@ def get_or_create_usermatch():
             db.session.commit()
             return new_match.to_dict()
     else:
-        print(match.to_dict())
+
         if context == 'group':
             match.group_matched = True
         elif context == 'user':
@@ -58,7 +58,7 @@ def get_or_create_usermatch():
 @match_routes.route('/unmatch', methods=["POST"])
 @login_required
 def unmatch():
-    print('-=-=-=-=-=-=-MADE IT IN=-=-=-=-=-=-=-=-')
+
     res = request.get_json()
     group_id = res['group_id']
     user_id = res['user_id']
@@ -66,11 +66,11 @@ def unmatch():
     match = db.session.query(Match).filter(
         Match.user_id == user_id, Match.group_id == group_id).first()
     if match is None:
-        print('``````nomatchfound````````')
+
         return("No match created")
     else:
-        print('!!!!!!!!match found!!!!!!!!')
-        print(match.to_dict())
+
+
         # if context == 'group':
         #     match.group_matched = False
         # elif context == 'user':
@@ -93,7 +93,7 @@ def get_user_matches(id):
     matches = db.session.query(Match).filter(
         Match.user_id == id and Match.user_matched is True).all()
     ret_dict = {match.id: match.to_dict() for match in matches}
-    print(ret_dict)
+
     return ret_dict
 
 

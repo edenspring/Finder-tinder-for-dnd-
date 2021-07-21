@@ -9,7 +9,7 @@ const setUser = (user) => ({
 
 //thunkitronics
 export const updateUser = (data) => async(dispatch) => {
-  console.log('you made it bro, heres ur data', data)
+
   const response = await fetch(`/api/users/${data.id}`, {
     method: 'PUT',
     headers: {

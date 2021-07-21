@@ -38,7 +38,7 @@ const GroupCard = () => {
   const onSwipe = (direction, id) => {
     if (direction == "right") {
       const data = { user_id: user.id, group_id: id, context: "user" };
-      console.log(data);
+
       dispatch(matchActions.makeMatch(data));
     }
     if (direction == "left") {
@@ -48,7 +48,7 @@ const GroupCard = () => {
   };
 
   const onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + " left the screen");
+
   };
 
   function determineMatchStatus(group) {
@@ -61,7 +61,6 @@ const GroupCard = () => {
     }
   }
 
-  // console.log(partialIds, fullIds)
 
   return (
     //the following code was based off of: https://github.com/3DJakob/react-tinder-card-demo/blob/master/src/examples/Advanced.js,

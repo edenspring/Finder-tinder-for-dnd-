@@ -128,11 +128,11 @@ export default function reducer(state = initialState, action) {
       };
       return newState;
     case REMOVE_USER_TAG:
-        console.log('hitting remove user tag reducer route')
+
         newState={...state};
-        console.log(newState)
+
         delete(newState.user.tags[action.payload]);
-        console.log(newState)
+
         return newState;
     default:
       return state;

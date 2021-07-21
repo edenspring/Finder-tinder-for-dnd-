@@ -18,12 +18,12 @@ def users():
 @login_required
 def matchable_users():
     users = db.session.query(User).filter(User.looking_for_group == True).all()
-    print('11111111111', users)
+
     ret_users = {}
     for user in users:
         id = user.id
         ret_users[id] = user.to_dict()
-    print('222222222222', ret_users)
+
     return ret_users
 
 

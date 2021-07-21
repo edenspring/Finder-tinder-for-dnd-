@@ -43,7 +43,7 @@ function ChatsList() {
   return (
     <div className="chats_container__div">
       <div className="chats_with_groups__div">
-        Chats with groups you've matched as a player:
+        <h2>Chats with groups you've matched as a player:</h2>
         {Object.values(chatsWithGroups).length ? (
           Object.values(chatsWithGroups).map((chat, index) => (
             <div className="chat_link__div" key={`chat_${chat.id}`}>
@@ -60,7 +60,7 @@ function ChatsList() {
         )}
       </div>
       <div className="chats_with_users__div">
-        Chats with players your group has matched with:
+        <h2>Chats with players your group has matched with:</h2>
         {Object.values(chatsWithPlayers).length ? (
           Object.values(chatsWithPlayers).map((chat, index) => (
             <div className="chat_link__div" key={`chat_${chat.id}`}>
@@ -73,7 +73,7 @@ function ChatsList() {
             </div>
           ))
         ) : (
-          <div>No full matches yet, keep swiping!</div>
+          <h3>No full matches yet, keep swiping!</h3>
         )}
       </div>
       <div className={activeChatClass}>{activeChat}</div>

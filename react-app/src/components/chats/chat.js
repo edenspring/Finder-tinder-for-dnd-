@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 let socket;
 
 function Chat({ props }) {
-  console.log(props);
+
   const user = useSelector((state) => state.session.user);
   const { chat } = props;
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function Chat({ props }) {
     socket.emit("join", { chatId: chat.id, username: user.username });
 
     socket.on("chat", (chat) => {
-      console.log('SKEEBAP', chat);
+
       setMessages((messages) => [...messages, chat])
     });
 
@@ -56,7 +56,6 @@ function Chat({ props }) {
                 className="message_content__div"
                 key={`message.no${index}`}
               >
-                {console.log(message)}
                 <div className="message_username__div">{message.user} says</div>
                 <div className="message_text__div"> {message.content} </div>
               </div>

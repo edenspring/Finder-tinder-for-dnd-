@@ -21,7 +21,7 @@ export const getUserChats = (userId) => async(dispatch) => {
 }
 
 export const getGroupChats = (groupId) => async(dispatch) => {
-  console.log('---group id : ', groupId)
+
   const response = await fetch(`/api/chats/groups/${groupId}`)
   const data = await response.json()
   if (data && data.errors){

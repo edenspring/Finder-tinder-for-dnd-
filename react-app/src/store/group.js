@@ -38,7 +38,7 @@ export const getUserGroup = (userId) => async (dispatch) => {
 };
 
 export const createGroup = (data) => async (dispatch) => {
-  console.log('you made it bro, heres ur data', data);
+
   const response = await fetch(`/api/groups/new`, {
     method: 'POST',
     headers: {
@@ -70,8 +70,6 @@ export const deleteGroup = (id) => async (dispatch) => {
   const response = await fetch(`/api/groups/delete/${id}`, {
     method: 'DELETE',
   });
-  // const data = await response.json()
-  // console.log(data)
   dispatch(updateUserGroup({}));
   dispatch(setGroup({}));
 };

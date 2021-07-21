@@ -27,7 +27,7 @@ const Group = () => {
   const history = useHistory();
 
   function updateGroup(e) {
-    console.log(e);
+
     e.preventDefault();
 
     const data = {

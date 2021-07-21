@@ -37,17 +37,17 @@ const UserCard = () => {
       fullIds.push(matchesFull[key].user_id);
     }
   }
-  console.log("0-0-0-0-0-", partialIds);
+
 
   useEffect(() => {
-    console.log("beepboop");
+
     dispatch(matchActions.getMatchableUsers()).then(() =>
       dispatch(matchActions.getMatchedUsers(group.id))
     );
   }, [dispatch]);
 
   const onSwipe = (direction, id) => {
-    console.log("You swiped: " + direction);
+
     if (direction == "right") {
       const data = { user_id: id, group_id: group.id, context: "group" };
       dispatch(matchActions.makeMatch(data));
@@ -59,7 +59,7 @@ const UserCard = () => {
   };
 
   const onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + " left the screen");
+
   };
 
   function determineMatchStatus(user) {

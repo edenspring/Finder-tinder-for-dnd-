@@ -139,6 +139,9 @@ label {
   top: 18%;
   left: 10%;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 
 }
 
@@ -176,6 +179,7 @@ label {
   display: flex;
   flex-direction: column;
   padding: 5px;
+  overflow-y: auto;
 }
 
 .usergroup_container__div img {
@@ -220,18 +224,22 @@ label {
 
 .chats_with_groups__div {
   margin: 5px;
-  height: 49%;
+  height: 47%;
   width: 49%;
   background-color: rgba(85, 66, 29, 0.755);
   box-shadow: 1px 1px 1px 1px;
+  overflow: auto;
+
 }
 
 .chats_with_users__div {
+
   margin: 5px;
-  height: 49%;
+  height: 47%;
   width: 49%;
   background-color: rgba(128, 55, 55, 0.755) ;
   box-shadow: 1px 1px 1px 1px;
+  overflow: auto;
 }
 
 .active_chat__div {
@@ -245,12 +253,19 @@ label {
   box-shadow: 1px 1px 1px 1px;
 }
 
-.chat_link_info__div:hover {
-  cursor: pointer;
+.chat_link_info__div:{
 
 }
 
+.chat_link_info__div:hover {
+  transition: background-color .5s, color .25s;
+  cursor: pointer;
+  background-color:  rgb(139, 149, 86);
+  color: #f1fffa;
+}
+
 .message_content__div {
+
 }
 
 .chat_input {
@@ -283,10 +298,29 @@ label {
 }
 
 .tinderCard_content {
+  max-height: auto;
   padding-bottom: 6px;
+  overflow-y: auto;
 }
 
 .tinderCard_info__div li {
   font-size: 1.25rem;
   list-style-type:none;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  display:none;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #202225;
+  min-height: 40px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
 }

@@ -29,14 +29,14 @@ const UserPage = () => {
       looking_for_group: looking_for_group,
     };
 
-    console.log('datarrr');
+
     dispatch(userActions.updateUser(data));
   }
 
 
 
   function lfgUpdate(e) {
-    console.log(e.checked);
+
     e.checked === 'on' ? setLFG(true) : setLFG(false);
   }
 
@@ -61,7 +61,7 @@ const UserPage = () => {
 
   function removeUserTag(id, e) {
     // setEditTags(!editTags)
-    console.log('remove_Tag_function')
+
     dispatch(tagActions.removeTag(id, 'user'))
     // e.closest('li').remove();
     // e.remove()

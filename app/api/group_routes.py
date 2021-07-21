@@ -20,10 +20,10 @@ def new_group():
 @login_required
 def edit_group(id):
     user_id = int(current_user.id)
-    print(id)
-    print(user_id)
+
+
     res = request.get_json()
-    print(res,'res')
+
     if (user_id != res['user_id']):
         return 'Not allowed'
     group = db.session.query(Group).get(id)
@@ -64,5 +64,5 @@ def matchable_groups():
     for group in groups:
         id = group.id
         ret_groups[id] = group.to_dict()
-    print(ret_groups,'222222')
+
     return ret_groups

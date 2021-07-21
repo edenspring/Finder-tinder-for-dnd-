@@ -67,7 +67,7 @@ export const getMatchableUsers = () => async (dispatch) => {
 export const getMatchableGroups = () => async (dispatch) => {
   const response = await fetch("api/groups/matchable");
   const data = await response.json();
-  console.log(data, "woopwoopwoopwoop");
+
   dispatch(setMatchableGroups(data));
 };
 
@@ -78,7 +78,7 @@ export const makeMatch = (data) => async (dispatch) => {
     body: JSON.stringify(data),
   });
   const responseData = await response.json();
-  console.log("wubwubwubwub", responseData);
+
   if (responseData.user_matched && responseData.group_matched) {
     if (data.context === "user") {
       dispatch(addFullyMatchedGroup(responseData));
@@ -98,9 +98,9 @@ export const getMatchedUsers = (groupId) => async (dispatch) => {
   const data = await response.json();
 
   for (const key in data) {
-    console.log(key, "key");
+
     if (data[key].user_matched && data[key].group_matched) {
-      console.log(data[key], "data at key");
+
       matches.full[key] = data[key];
       // fullMatch[key] = data[key]
     } else {
@@ -118,19 +118,19 @@ export const getMatchedGroups = (userId) => async (dispatch) => {
   // let fullMatch = new Object({})
   const matches = { full: {}, partial: {} };
   const data = await response.json();
-  console.log(matches);
+
 
   for (const key in data) {
-    console.log(key, "key");
+
     if (data[key].user_matched && data[key].group_matched) {
-      console.log(data[key], "data at key");
+
       matches.full[key] = data[key];
       // fullMatch[key] = data[key]
     } else {
       if (data[key].user_matched) matches.partial[key] = data[key];
     }
   }
-  console.log("full", matches);
+
   dispatch(setFullyMatchedGroups(matches));
   // dispatch(setPartiallyMatchedGroups(partialMatch))
 };

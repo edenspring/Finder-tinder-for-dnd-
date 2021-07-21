@@ -55,13 +55,13 @@ export const createTag = (tagData) => async(dispatch) => {
     body: JSON.stringify(tagData)
   });
   const data = await response.json();
-  console.log('``````', data)
+
   if (data.errors){
     return
   }
   if (data.taggable_type === 'user') dispatch(updateUserTags(data))
   else if (data.taggable_type === 'group'){
-    console.log('group tag')
+
     dispatch(updateGroupTags(data))
   }
 }
