@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import * as userActions from '../../store/user';
-import * as tagActions from '../../store/tag'
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as userActions from "../../store/user";
+import * as tagActions from "../../store/tag";
 
 const UserPage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => ({...state.session.user}));
+  const user = useSelector((state) => ({ ...state.session.user }));
   const [editName, setEditName] = useState(false);
   const [editPhoto, setEditPhoto] = useState(false);
   const [editTags, setEditTags] = useState(false);
@@ -15,9 +15,9 @@ const UserPage = () => {
   const [userName, setUserName] = useState(user.username);
   const [user_photo, setPhoto] = useState(user.photo);
   const [looking_for_group, setLFG] = useState(user.looking_for_group);
-  const [newPassword, setNewPassword] = useState('password');
-  const [verifyPassword, setVerifyPassword] = useState('repeatpassword');
-  const [newTag, setNewTag] = useState('');
+  const [newPassword, setNewPassword] = useState("password");
+  const [verifyPassword, setVerifyPassword] = useState("repeatpassword");
+  const [newTag, setNewTag] = useState("");
 
   function updateUser(e) {
     e.preventDefault();
@@ -29,21 +29,17 @@ const UserPage = () => {
       looking_for_group: looking_for_group,
     };
 
-
     dispatch(userActions.updateUser(data));
   }
 
-
-
   function lfgUpdate(e) {
-
-    e.checked === 'on' ? setLFG(true) : setLFG(false);
+    e.checked === "on" ? setLFG(true) : setLFG(false);
   }
 
   function updatePassword(e) {
     e.preventDefault();
     if (newPassword !== verifyPassword) {
-      window.alert('Passwords must be the same!');
+      window.alert("Passwords must be the same!");
       return;
     } else {
       setEditPassword(false);
@@ -55,29 +51,31 @@ const UserPage = () => {
         password: newPassword,
         repeatPassword: verifyPassword,
       };
-      dispatch(userActions.updatePassword(data))
+      dispatch(userActions.updatePassword(data));
     }
   }
 
   function removeUserTag(id, e) {
     // setEditTags(!editTags)
 
-    dispatch(tagActions.removeTag(id, 'user'))
+    dispatch(tagActions.removeTag(id, "user"));
     // e.closest('li').remove();
     // e.remove()
   }
 
-  function addUserTag(e){
+  function addUserTag(e) {
     e.preventDefault();
     const data = {
-      'taggable_id': user.id,
-      'taggable_type': 'user',
-      'tag': newTag
-    }
-    dispatch(tagActions.createTag(data))
+      taggable_id: user.id,
+      taggable_type: "user",
+      tag: newTag,
+    };
+    setNewTag("");
+    document.querySelector(".user_tag__input").value = "";
+    dispatch(tagActions.createTag(data));
   }
 
-  function enableTagEdit(e){
+  function enableTagEdit(e) {
     e.preventDefault();
     e.stopPropagation();
     setEditTags(!editTags);
@@ -88,7 +86,7 @@ const UserPage = () => {
       {user && (
         <>
           <button onClick={() => setEditPassword(!editPassword)}>
-            Change Password?
+            {editPassword ? "Cancel" : "Change Password?"}
           </button>
           {editPassword && (
             <>
@@ -113,7 +111,6 @@ const UserPage = () => {
         <>
           <div className="userpage_username__div">
             User name: {user.username}
-            <button onClick={()=>setEditName(!editName)}>Edit</button>
             {editName && (
               <>
                 <form onSubmit={updateUser}>
@@ -126,10 +123,13 @@ const UserPage = () => {
               </>
             )}
           </div>
+          <button onClick={() => setEditName(!editName)}>
+            {editName ? "Done editing username" : "Edit Username"}
+          </button>
           <div className="userpage_email__div">Email : {user.email}</div>
           <div className="userpage_photo__div">
             Picture: <img src={user.photo} />
-            <button onClick={() => setEditPhoto(!editPhoto)}>Edit</button>
+            <div></div>
             {editPhoto && (
               <>
                 <form onSubmit={updateUser}>
@@ -142,37 +142,17 @@ const UserPage = () => {
               </>
             )}
           </div>
-          <div className="userpage_tags__div">
-            Tags:{' '}
-            {user.tags && (
-              <>
-                <ul>
-                  {Object.values(user.tags).map((tag, i) => (
-                    <li key={`user_tag_key_${i}`}>
-                      {tag.tag}{' '}
-                      {editTags && <button onClick={(e)=>removeUserTag(tag.id,e.target)}>X</button>}
-                    </li>
-                  ))}
-                </ul>
-                <button onClick={(e) => enableTagEdit(e)}>{editTags ? 'Done Editing' : 'Edit Tags'}</button>
-                {editTags && (
-                  <>
-                    <form onSubmit={addUserTag}>
-                      <input
-                        onChange={(e) => setNewTag(e.target.value)}
-                        placeholder="Enter new tag..."
-                      />
-                      <button type="submit">Add new tag</button>
-                    </form>
-                  </>
-                )}
-              </>
-            )}
-          </div>
+          <button onClick={() => setEditPhoto(!editPhoto)}>
+            {editPhoto ? "Done Editing Photo Link" : "Edit Photo Link"}
+          </button>
           <div className="userpage_lfg__div">
-            Currently Looking for group? :{' '}
-            {user.looking_for_group ? 'Yes' : 'No'}
-            <button onClick={() => setEditLFG(!editLFG)}>Edit</button>
+            Currently Looking for group? :{" "}
+            {user.looking_for_group ? "Yes" : "No"}
+            <div>
+              <button onClick={() => setEditLFG(!editLFG)}>
+                {editLFG ? "Done Editing LFG Status" : "Edit LFG Status"}
+              </button>
+            </div>
             {editLFG && (
               <>
                 <form onSubmit={updateUser}>
@@ -184,6 +164,42 @@ const UserPage = () => {
                   />
                   <button type="submit">Update Looking for Group Status</button>
                 </form>
+              </>
+            )}
+          </div>
+          <div className="userpage_tags__div">
+            Tags:{" "}
+            {user.tags && (
+              <>
+                <ul>
+                  {Object.values(user.tags).map((tag, i) => (
+                    <li key={`user_tag_key_${i}`}>
+                      {tag.tag}{" "}
+                      {editTags && (
+                        <button
+                          onClick={(e) => removeUserTag(tag.id, e.target)}
+                        >
+                          X
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={(e) => enableTagEdit(e)}>
+                  {editTags ? "Done Editing" : "Edit Tags"}
+                </button>
+                {editTags && (
+                  <>
+                    <form onSubmit={addUserTag}>
+                      <input
+                        className="user_tag__input"
+                        onChange={(e) => setNewTag(e.target.value)}
+                        placeholder="Enter new tag..."
+                      />
+                      <button type="submit">Add new tag</button>
+                    </form>
+                  </>
+                )}
               </>
             )}
           </div>

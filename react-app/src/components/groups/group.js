@@ -27,7 +27,6 @@ const Group = () => {
   const history = useHistory();
 
   function updateGroup(e) {
-
     e.preventDefault();
 
     const data = {
@@ -57,6 +56,7 @@ const Group = () => {
       taggable_type: "group",
       tag: newTag,
     };
+    document.querySelector(".group_tag__input").value = "";
     dispatch(tagActions.createTag(data));
   }
 
@@ -72,14 +72,11 @@ const Group = () => {
           <div className="usergroup_container__div">
             <div className="group_name__div">
               Group Name: {group.name}
-              <button type="button" onClick={() => setEditName(!editName)}>
-                Edit name?
-              </button>
               {editName && (
                 <>
                   <form onSubmit={updateGroup}>
                     <input
-                     className="form__input"
+                      className="form__input"
                       onChange={(e) => setNewName(e.target.value)}
                       defaultValue={group.name}
                     />
@@ -88,16 +85,16 @@ const Group = () => {
                 </>
               )}
             </div>
+            <button type="button" onClick={() => setEditName(!editName)}>
+              {editName ? "Done Editing" : "Update Group Name"}
+            </button>
             <div className="group_photo__div">
               <img src={group.group_photo} />
-              <button onClick={() => setEditPhoto(!editPhoto)}>
-                Edit Photo?
-              </button>
               {editPhoto && (
                 <>
                   <form onSubmit={updateGroup}>
                     <input
-                     className="form__input"
+                      className="form__input"
                       onChange={(e) => setNewPhoto(e.target.value)}
                       defaultValue={newPhoto}
                     />
@@ -106,15 +103,18 @@ const Group = () => {
                 </>
               )}
             </div>
-            <div className="group_rules__div">Rulest: {group.game_rules}</div>
+            <button onClick={() => setEditPhoto(!editPhoto)}>
+              {editPhoto ? "Done Editing" : "Update Group Photo"}
+            </button>
+            <div className="group_rules__div">Ruleset: {group.game_rules}</div>
             <button onClick={() => setEditRules(!editRules)}>
-              Edit rules?
+              {editRules ? "Done Editing" : "Update Group Game Rules"}
             </button>
             {editRules && (
               <>
                 <form onSubmit={updateGroup}>
                   <input
-                   className="form__input"
+                    className="form__input"
                     onChange={(e) => setNewRules(e.target.value)}
                     defaultValue={group.game_rules}
                   />
@@ -126,7 +126,7 @@ const Group = () => {
               Currently Recruiting? : {group.recruiting ? "Yes" : "No"}
             </div>
             <button onClick={() => setEditRecruiting(!editRecruiting)}>
-              Edit Recruiting Status
+              {editPhoto ? "Done Editing" : "Update Group Recruiting Status"}
             </button>
             {editRecruiting && (
               <>
@@ -158,18 +158,6 @@ const Group = () => {
             )}
             <div className="group_tags__div">
               Tags:
-              {editTags && (
-                <div className="group_edittags__div">
-                  <form onSubmit={createGroupTag}>
-                    <input
-                     className="form__input"
-                      onChange={(e) => setNewTag(e.target.value)}
-                      placeholder="Enter new tag..."
-                    />
-                    <button type="submit">Add new tag</button>
-                  </form>
-                </div>
-              )}
               {group.tags && (
                 <>
                   <ul>
@@ -188,7 +176,22 @@ const Group = () => {
                   </ul>
                 </>
               )}
-              <button onClick={() => setEditTags(!editTags)}>Edit tags</button>
+              {editTags && (
+                <div className="group_edittags__div">
+                  <form onSubmit={createGroupTag}>
+                    <input
+                      className="form__input, group_tag__input"
+                      onChange={(e) => setNewTag(e.target.value)}
+                      placeholder="Enter new tag..."
+                    />
+                    <button type="submit">Add new tag</button>
+                  </form>
+                </div>
+              )}
+              <button onClick={() => setEditTags(!editTags)}>
+                {" "}
+                {editTags ? "Done Editing" : "Update Group Tags"}
+              </button>
             </div>
             <div className="group_delete__div">
               <button
